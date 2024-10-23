@@ -1,12 +1,30 @@
 // src/components/TopBar.jsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../assets/logo.png'; 
 import settingsIcon from '../assets/settings.png'; // Import the settings icon
 import Button from './Button'; // Import the Button component
 
 const TopBar = () => {
+  const [scrolled, setScrolled] = useState(false);
+
+  const handleScroll = () => {
+    // Check if the user has scrolled down 50 pixels
+    if (window.scrollY > 50) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    // Attach the scroll event listener
+    window.addEventListener('scroll', handleScroll);
+    // Cleanup the event listener on component unmount
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="p-4 text-white flex items-center mt-2 "> {/* border-b-[0.25px] border-[#323232] */} 
+    <div className={`fixed top-0 left-0 right-0 p-4 text-white flex items-center bg-[#181A1F] z-50 transition-shadow duration-300 ${scrolled ? 'shadow-lg' : ''}`}>
       <div className="flex items-center mr-6">
         <img src={logo} alt="Logo" className="h-16 ml-6 mr-2" /> 
       </div>

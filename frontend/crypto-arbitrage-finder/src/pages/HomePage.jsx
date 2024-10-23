@@ -7,7 +7,7 @@ const HomePage = () => {
     <div>
       <TopBar /> {/* Add the TopBar component here */}
 
-      <h1 className="w-full h-[10vh] text-white font-bold text-5xl ml-32 mt-8">
+      <h1 className="w-full h-[10vh] text-white font-bold text-5xl ml-32 mt-32">
         Crypto Arbitrage Finder
       </h1>
 
