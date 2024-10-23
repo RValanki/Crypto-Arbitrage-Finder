@@ -6,10 +6,38 @@ const HomePage = () => {
   return (
     <div>
       <TopBar /> {/* Add the TopBar component here */}
-      
-      <h1 class = "w-full h-[20vh] text-white font-bold text-50 ml-32 mt-10 text-5xl">Crypto Arbitrage Finder</h1>
 
+      <h1 className="w-full h-[10vh] text-white font-bold text-5xl ml-32 mt-8">
+        Crypto Arbitrage Finder
+      </h1>
 
+      {/* Flexbox layout with two columns */}
+      <div className="flex mt-10 ml-32 mr-28"> {/* Add margin-top for spacing */}
+        {/* First Column (3/4 width) */}
+        <div className="flex-[5] p-4">
+          <h2 className="text-white">First Column</h2>
+
+          <div className="w-full h-[100vh] bg-[#1F2025] rounded-[5px]">
+            {/* Content for the first column */}
+          </div>
+        </div>
+
+        {/* Second Column (1/4 width) */}
+        <div className="flex-[2] p-4 flex flex-col">
+          
+
+          {/* Three Rows in Second Column */}
+          <div className=" h-[15vh] bg-[#1F2025] rounded-[5px] mt-6 mb-3 p-2">
+            
+          </div>
+          <div className="h-[30vh] bg-[#1F2025] rounded-[5px] mb-3 p-2">
+            
+          </div>
+          <div className=" h-[30vh] bg-[#1F2025] rounded-[5px] p-2">
+            
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
