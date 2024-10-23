@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crypto_arbitrage_finder_backend'
+    'crypto_arbitrage_finder_backend',
+    'arbitrage',
 ]
 
 MIDDLEWARE = [
