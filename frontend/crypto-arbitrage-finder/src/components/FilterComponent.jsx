@@ -10,7 +10,11 @@ const FilterComponent = () => {
   };
 
   const handleOptionClick = (option) => {
-    setSelectedOption(option); // Set the selected option
+    if (option === "Deselect") {
+      setSelectedOption(null); // Deselect the filter
+    } else {
+      setSelectedOption(option); // Set the selected option
+    }
     setIsOpen(false); // Close the dropdown
   };
 
@@ -50,6 +54,12 @@ const FilterComponent = () => {
               onClick={() => handleOptionClick("Option 3")}
             >
               Option 3
+            </li>
+            <li 
+              className="py-1 hover:bg-[#2B2F38] px-2 rounded" 
+              onClick={() => handleOptionClick("Deselect")}
+            >
+              Deselect
             </li>
           </ul>
         </div>
