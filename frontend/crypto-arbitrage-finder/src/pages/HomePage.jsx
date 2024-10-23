@@ -14,7 +14,7 @@ const HomePage = () => {
       </h1>
 
       {/* Flexbox layout with two columns */}
-      <div className="flex mt-10 ml-32 mr-28"> {/* Add margin-top for spacing */}
+      <div className="flex mt-10 ml-20 mr-20"> {/* Add margin-top for spacing */}
         {/* First Column (3/4 width) */}
         <div className="flex-[5] p-4">
           <h2 className="text-white">First Column</h2>
@@ -42,7 +42,7 @@ const HomePage = () => {
         </div>
 
         {/* Second Column (1/4 width) */}
-        <div className="flex-[2] p-4 flex flex-col">
+        <div className="flex-[1.6] p-4 flex flex-col">
           
 
           {/* Three Rows in Second Column */}
