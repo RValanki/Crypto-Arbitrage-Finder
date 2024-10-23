@@ -25,11 +25,11 @@ const FilterComponent = ({ defaultValue, options, selected = false }) => {
   }, [selected, defaultValue]);
 
   // Determine the background color based on the selected option
-  const backgroundColor = selectedOption ? '#373B47' : '#24262B';
+  const backgroundColor = selectedOption ? 'bg-[#373B47]' : 'bg-[#24262B]';
 
   return (
     <div 
-      className={`w-full h-full bg-[${backgroundColor}] rounded-[3px] hover:bg-[#373B47] transition-colors duration-300 ease-in-out flex items-center relative cursor-pointer`}
+      className={`w-full h-full ${backgroundColor} rounded-[3px] hover:bg-[#373B47] transition-colors duration-300 ease-in-out flex items-center relative cursor-pointer`}
       onClick={toggleDropdown}
     >
       {/* Centered text */}

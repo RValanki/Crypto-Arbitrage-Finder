@@ -39,7 +39,7 @@ const TopBar = () => {
       </nav>
 
       {/* Swapped Button components with updated color */}
-      <Button label="Sign Up" onClick={() => console.log('Register clicked')} className="ml-auto bg-[#292C2F] hover:bg-[#414549]" />
+      <Button label="Sign Up" onClick={() => console.log('Register clicked')} className="ml-auto" isPrimary = {false} />
       <Button label="Sign In" onClick={() => console.log('Sign In clicked')} className="ml-4 mr-2" />
 
       {/* Settings icon next to Sign In button */}

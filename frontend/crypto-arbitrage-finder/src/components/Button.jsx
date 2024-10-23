@@ -1,12 +1,14 @@
 // src/components/Button.jsx
 import React from 'react';
 
-const Button = ({ label, onClick, className, type = 'button' }) => {
+const Button = ({ label, onClick, className, type = 'button', isPrimary = true }) => {
+  const backgroundColor = isPrimary ? 'bg-[#592FA2]' : 'bg-[#292C2F]'
+  const backgroundHoveColor = isPrimary ? 'hover:bg-[#4B238D]' : 'hover:bg-[#414549]'
   return (
     <button
       type={type}
       onClick={onClick}
-      className={`bg-[#592FA2] text-white font-medium py-2 px-8 h-full rounded-[5px] transition duration-300 hover:bg-[#4B238D] text-center ${className}`}
+      className={`${backgroundColor} ${backgroundHoveColor} text-white font-medium py-2 px-8 h-full rounded-[5px] transition duration-300  text-center ${className}`}
     >
       {label}
     </button>
