@@ -3,7 +3,7 @@
 # This script is used to start the frontend and backend servers
 # Instructions:
 # 1. Open terminal
-# 2. cd to the root project directory "KEEP-ME-POSTED"
+# 2. cd to the root project directory "CRYPTO_ARBITRAGE_FINDER"
 # 3. Run the script using the command "bash run_servers.sh"
 
 # Get the directory of the script

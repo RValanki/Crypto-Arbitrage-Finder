@@ -1,0 +1,24 @@
+/* src/styling/App.css */
+
+/* Retain styles related to App-logo if necessary */
+.App-logo {
+  height: 40vmin; /* Keep this if you have specific height requirements */
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear; /* Keep this if the animation is still required */
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Remove other styles that can be replaced by Tailwind CSS */
