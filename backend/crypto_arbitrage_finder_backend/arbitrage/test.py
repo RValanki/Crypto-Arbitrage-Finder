@@ -1,6 +1,6 @@
 import asyncio
-from binance_adapter import BinanceAdapter  # Importing the BinanceAdapter class
-from coinbase_adapter import CoinbaseAdapter
+from adapters.binance_adapter import BinanceAdapter  # Importing the BinanceAdapter class
+from adapters.coinbase_adapter import CoinbaseAdapter
 
 async def fetch_binance_data(adapter):
     raw_data = await adapter.fetch_data()  # Fetch raw data asynchronously
