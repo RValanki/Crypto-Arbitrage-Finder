@@ -2,6 +2,7 @@
 import React from 'react';
 import TopBar from '../components/TopBar'; // Adjust the import path as necessary
 import Refresh from '../components/Refresh';
+import ArbitragePair from '../components/ArbitragePair';
 
 const HomePage = () => {
   return (
@@ -18,8 +19,25 @@ const HomePage = () => {
         <div className="flex-[5] p-4">
           <h2 className="text-white">First Column</h2>
 
-          <div className="w-full h-[100vh] bg-[#1F2025] rounded-[5px]">
+          <div className="w-full  bg-[#1F2025] rounded-[5px] p-2">
             {/* Content for the first column */}
+
+
+            <ArbitragePair> </ArbitragePair>
+            <ArbitragePair> </ArbitragePair>
+            <ArbitragePair> </ArbitragePair>
+            <ArbitragePair> </ArbitragePair>
+            <ArbitragePair> </ArbitragePair>
+            <ArbitragePair> </ArbitragePair>
+            <ArbitragePair> </ArbitragePair>
+            <ArbitragePair> </ArbitragePair>
+            <ArbitragePair> </ArbitragePair>
+            <ArbitragePair> </ArbitragePair>
+            <ArbitragePair> </ArbitragePair>
+            <ArbitragePair> </ArbitragePair>
+            <ArbitragePair> </ArbitragePair>
+            
+
           </div>
         </div>
 
