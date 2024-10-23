@@ -6,7 +6,7 @@ import Button from './Button'; // Import the Button component
 
 const TopBar = () => {
   return (
-    <div className="p-4 text-white flex items-center mt-2 border-b-[0.25px] border-[#323232]">
+    <div className="p-4 text-white flex items-center mt-2 "> {/* border-b-[0.25px] border-[#323232] */} 
       <div className="flex items-center mr-6">
         <img src={logo} alt="Logo" className="h-16 ml-6 mr-2" /> 
       </div>
