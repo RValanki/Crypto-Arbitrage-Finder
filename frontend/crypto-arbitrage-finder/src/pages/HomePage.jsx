@@ -3,6 +3,7 @@ import React from 'react';
 import TopBar from '../components/TopBar'; // Adjust the import path as necessary
 import Refresh from '../components/Refresh';
 import ArbitragePair from '../components/ArbitragePair';
+import Filters from '../components/Filters';
 
 const HomePage = () => {
   return (
@@ -49,8 +50,8 @@ const HomePage = () => {
           <div className=" h-[15vh] bg-[#1F2025] rounded-[5px] mt-6 mb-4 p-2">
             <Refresh> </Refresh>
           </div>
-          <div className="h-[30vh] bg-[#1F2025] rounded-[5px] mb-4 p-2">
-            
+          <div className="h-[35vh] bg-[#1F2025] rounded-[5px] mb-4 p-2">
+            <Filters> </Filters>
           </div>
           <div className=" h-[30vh] bg-[#1F2025] rounded-[5px] p-2">
             

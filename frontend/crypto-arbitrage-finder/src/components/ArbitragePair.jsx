@@ -6,7 +6,7 @@ import Bitcoin from "../assets/Bitcoin.png"
 import GreenArrowUp from "../assets/GreenArrowUp.png"
 import RedArrowDown from "../assets/RedArrowDown.png"
 
-const ArbitragePair = ({ label, onClick, className, type = 'button' }) => {
+const ArbitragePair = () => {
     return (
         <div className="w-full h-[10vh] bg-[#2B2F38] rounded-[5px] mb-2.5 p-2 group hover:bg-[#373B47] transition-colors duration-300 ease-in-out cursor-pointer"> {/* Added cursor-pointer */}
             <div className="flex h-full">
