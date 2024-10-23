@@ -1,47 +1,69 @@
 import asyncio
+import requests
 from adapters.binance_adapter import BinanceAdapter  # Importing the BinanceAdapter class
-from adapters.coinbase_adapter import CoinbaseAdapter
+from adapters.coinbase_adapter import CoinbaseAdapter  # Importing the CoinbaseAdapter class
+
+def fetch_top_cryptos():
+    # Fetching top 1000 cryptocurrencies from CoinGecko
+    url = "https://api.coingecko.com/api/v3/coins/markets"
+    params = {
+        'vs_currency': 'usd',
+        'order': 'market_cap_desc',
+        'per_page': 200,
+        'page': 1,
+        'sparkline': False,
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        return [coin['symbol'].upper() + '/USDT' for coin in response.json()]
+    else:
+        print(f"Error fetching top cryptocurrencies: {response.status_code}")
+        return []
 
 async def fetch_binance_data(adapter):
-    raw_data = await adapter.fetch_data()  # Fetch raw data asynchronously
-    return adapter.normalize_data(raw_data)
+    try:
+        raw_data = await adapter.fetch_data()  # Fetch raw data asynchronously
+        return adapter.normalize_data(raw_data)
+    except Exception as e:
+        print(f"Error fetching data for {adapter.symbol}: {e}")
+        return None  # Return None on error
 
 async def test_binance_adapter_multiple_cryptos():
-    # Top 20 cryptocurrencies by market cap (validated for Binance)
-    top_symbols = [
-        'BTC/USDT', 'ETH/USDT', 'BNB/USDT', 'XRP/USDT', 'ADA/USDT',
-        'SOL/USDT', 'DOGE/USDT', 'DOT/USDT', 'MATIC/USDT', 'TRX/USDT',
-        'LTC/USDT', 'AVAX/USDT', 'LINK/USDT', 'FIL/USDT', 'ETC/USDT',
-        'ALGO/USDT', 'VET/USDT', 'CHZ/USDT', 'SAND/USDT', 'FLOKI/USDT',
-    ]
+    top_symbols = fetch_top_cryptos()  # Get top 1000 cryptocurrencies
 
     tasks = [fetch_binance_data(BinanceAdapter(symbol)) for symbol in top_symbols]
     normalized_data_list = await asyncio.gather(*tasks)
 
+    successful_fetches = sum(1 for data in normalized_data_list if data is not None)
+
+    print(f"Number of successful fetches from Binance: {successful_fetches}")
     for normalized_data in normalized_data_list:
-        print("Binance Normalized Data:", normalized_data)
+        if normalized_data:
+            print("Binance Normalized Data:", normalized_data)
 
 async def fetch_coinbase_data(adapter):
-    raw_data = await adapter.fetch_data()
-    return adapter.normalize_data(raw_data)
+    try:
+        raw_data = await adapter.fetch_data()
+        return adapter.normalize_data(raw_data)
+    except Exception as e:
+        print(f"Error fetching data for {adapter.symbol}: {e}")
+        return None  # Return None on error
 
 async def test_coinbase_adapter_multiple_cryptos():
-    # Top 20 cryptocurrencies by market cap (hardcoded for Coinbase)
-    top_symbols = [
-        'BTC-USDT', 'ETH-USDT', 'LTC-USDT', 'BCH-USDT', 'XRP-USDT',
-        'AVAX-USDT', 'LINK-USDT', 'MATIC-USDT', 'SOL-USDT', 'DOT-USDT',
-        'DOGE-USDT', 'SHIB-USDT', 'TRX-USDT', 'VET-USDT', 'CRO-USDT',
-        'ALGO-USDT', 'XLM-USDT', 'FIL-USDT', 'SAND-USDT', 'FLOKI-USDT',
-    ]
+    top_symbols = fetch_top_cryptos()  # Get top 1000 cryptocurrencies
 
-    tasks = [fetch_coinbase_data(CoinbaseAdapter(symbol)) for symbol in top_symbols]
+    tasks = [fetch_coinbase_data(CoinbaseAdapter(symbol.replace('/', '-'))) for symbol in top_symbols]
     normalized_data_list = await asyncio.gather(*tasks)
 
+    successful_fetches = sum(1 for data in normalized_data_list if data is not None)
+
+    print(f"Number of successful fetches from Coinbase: {successful_fetches}")
     for normalized_data in normalized_data_list:
-        print("Coinbase Normalized Data:", normalized_data)
+        if normalized_data:
+            print("Coinbase Normalized Data:", normalized_data)
 
 if __name__ == "__main__":
-    print("Testing Binance Adapter for multiple cryptocurrencies...")
+    print("Testing Binance Adapter for top 1000 cryptocurrencies...")
     asyncio.run(test_binance_adapter_multiple_cryptos())
-    print("\nTesting Coinbase Adapter for multiple cryptocurrencies...")
+    print("\nTesting Coinbase Adapter for top 1000 cryptocurrencies...")
     asyncio.run(test_coinbase_adapter_multiple_cryptos())
