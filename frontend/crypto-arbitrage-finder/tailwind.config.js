@@ -1,10 +1,14 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // Adjust the path based on your project structure
+    "./src/**/*.{js,jsx,ts,tsx}", // Ensure Tailwind scans your files
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'background-gray': '#181A1F', // Add your custom color here
+      },
+    },
   },
   plugins: [],
 };

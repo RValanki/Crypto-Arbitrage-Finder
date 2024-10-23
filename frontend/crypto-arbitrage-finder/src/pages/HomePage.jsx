@@ -1,10 +1,11 @@
 // src/pages/HomePage.jsx
 import React from 'react';
+import TopBar from '../components/TopBar'; // Adjust the import path as necessary
 
 const HomePage = () => {
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="text-4xl font-bold">Welcome to the Home Page!</div>
+    <div>
+      <TopBar /> {/* Add the TopBar component here */}
     </div>
   );
 };
