@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PurpleArrow from "../assets/PurpleArrow.png";
+import GreyArrow from "../assets/GreyArrow.png";
 
 const FilterComponent = () => {
   const [isOpen, setIsOpen] = useState(false); // State to control dropdown visibility
@@ -31,7 +32,11 @@ const FilterComponent = () => {
         {selectedOption ? selectedOption : "Sort by largest marketcap"}
       </div>
       {/* Right aligned image */}
-      <img src={PurpleArrow} alt="Logo" className="h-3 absolute right-2" />
+      <img 
+        src={selectedOption ? PurpleArrow : GreyArrow} 
+        alt="Arrow" 
+        className="h-3 absolute right-2" 
+      />
 
       {/* Dropdown */}
       {isOpen && (
