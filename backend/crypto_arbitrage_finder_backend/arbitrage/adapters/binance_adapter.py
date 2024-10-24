@@ -1,25 +1,30 @@
-# File: binance_adapter.py
-import ccxt
-import asyncio
+import aiohttp  # Ensure aiohttp is installed
 
 class BinanceAdapter:
     def __init__(self, symbol=None):
         self.symbol = symbol
-        self.exchange = ccxt.binance()
+        self.api_url = 'https://api.binance.com/api/v3/ticker/24hr'  # Endpoint for 24hr ticker price change statistics
 
     async def fetch_data(self):
-        # Use asyncio.to_thread to run the synchronous fetch_ticker in a thread pool
+        """Fetch market data from Binance asynchronously."""
         if self.symbol:
-            return await asyncio.to_thread(self.exchange.fetch_ticker, self.symbol)
+            async with aiohttp.ClientSession() as session:
+                async with session.get(self.api_url, params={'symbol': self.symbol}) as response:
+                    if response.status == 200:
+                        return await response.json()
+                    else:
+                        print(f"Error fetching data for {self.symbol} from Binance: {response.status}")
+                        return None
         return None
 
     def normalize_data(self, raw_data):
+        """Normalize the fetched data from Binance."""
         if raw_data:
             return {
                 'symbol': raw_data['symbol'],
-                'price': raw_data['last'],
-                'high': raw_data['high'],
-                'low': raw_data['low'],
-                'volume': raw_data['baseVolume'],
+                'price': float(raw_data['lastPrice']),
+                'high': float(raw_data['highPrice']),
+                'low': float(raw_data['lowPrice']),
+                'volume': float(raw_data['volume']),
             }
         return None
