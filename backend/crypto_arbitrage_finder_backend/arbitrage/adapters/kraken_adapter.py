@@ -1,20 +1,19 @@
 import aiohttp  # Ensure aiohttp is installed
 
 class KrakenAdapter:
-    def __init__(self, symbol=None):
-        self.symbol = symbol
+    def __init__(self):
         self.api_url = 'https://api.kraken.com/0/public/Ticker'  # Endpoint for ticker information
 
-    async def fetch_data(self):
+    async def fetch_data(self, symbol):
         """Fetch market data for a specific symbol from Kraken asynchronously."""
-        if self.symbol:
-            params = {'pair': self.symbol}  # Kraken uses 'pair' parameter
+        if symbol:
+            params = {'pair': symbol}  # Kraken uses 'pair' parameter
             async with aiohttp.ClientSession() as session:
                 async with session.get(self.api_url, params=params) as response:
                     if response.status == 200:
                         return await response.json()
                     else:
-                        print(f"Error fetching data for {self.symbol} from Kraken: {response.status}")
+                        print(f"Error fetching data for {symbol} from Kraken: {response.status}")
                         return None
         return None
 
@@ -25,21 +24,16 @@ class KrakenAdapter:
                 if response.status == 200:
                     all_ticker_data = await response.json()
                     if 'result' in all_ticker_data:
-                        normalized_data = []
-                        for ticker_key in all_ticker_data['result']:
-                            self.symbol = ticker_key  # Set the current pair key
-                            normalized_data.append(self.normalize_data(all_ticker_data))  # Normalize data for each ticker
-                        return normalized_data
+                        return all_ticker_data['result']  # Return raw data for normalization
                 else:
                     print(f"Error fetching all tickers from Kraken: {response.status}")
                     return None
 
-    def normalize_data(self, raw_data):
+    def normalize_data(self, ticker_info, symbol):
         """Normalize the fetched data from Kraken."""
-        if raw_data and 'result' in raw_data:
-            ticker_info = raw_data['result'][self.symbol]  # Access data for the current symbol
+        if ticker_info:
             return {
-                'symbol': self.symbol,
+                'symbol': symbol,
                 'price': float(ticker_info['c'][0]),  # Current price (last trade closed)
                 'high': float(ticker_info['h'][0]),    # Today's high price
                 'low': float(ticker_info['l'][0]),     # Today's low price
@@ -48,8 +42,10 @@ class KrakenAdapter:
         return None
 
     def normalize_all_data(self, raw_data):
-        """Normalize all ticker data returned from Kraken."""
+        """Normalize the fetched data for all tickers from Kraken."""
         normalized_data = []
-        for item in raw_data:
-            normalized_data.append(self.normalize_data(item))
+        for symbol, ticker_info in raw_data.items():
+            normalized_entry = self.normalize_data(ticker_info, symbol)
+            if normalized_entry:  # Only append if normalization was successful
+                normalized_data.append(normalized_entry)
         return normalized_data
