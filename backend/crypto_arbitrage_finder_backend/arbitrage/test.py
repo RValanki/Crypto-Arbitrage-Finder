@@ -1,10 +1,10 @@
 import asyncio
 import requests
-from adapters.binance_adapter import BinanceAdapter  # Importing the BinanceAdapter class
-from adapters.coinbase_adapter import CoinbaseAdapter  # Importing the CoinbaseAdapter class
-from adapters.kraken_adapter import KrakenAdapter  # Importing the KrakenAdapter class
-from adapters.bitfinex_adapter import BitfinexAdapter  # Importing the BitfinexAdapter class
-from adapters.kucoin_adapter import KuCoinAdapter  # Importing the KuCoinAdapter class
+from adapters.binance_adapter import BinanceAdapter  # Adjust the import according to your project structure
+from adapters.coinbase_adapter import CoinbaseAdapter
+from adapters.kraken_adapter import KrakenAdapter
+from adapters.bitfinex_adapter import BitfinexAdapter
+from adapters.kucoin_adapter import KuCoinAdapter
 
 def fetch_top_cryptos():
     """Fetch the top cryptocurrencies from CoinGecko."""
@@ -49,10 +49,26 @@ async def test_adapter_multiple_cryptos(adapter_class, top_symbols, symbol_norma
         if normalized_data:
             print(f"{adapter_class.__name__} Normalized Data:", normalized_data)
 
+async def test_fetch_all_binance_data():
+    """Test fetching all ticker data from Binance and print the number of items."""
+    print("Testing fetch_all_data method for Binance Adapter...")
+    adapter = BinanceAdapter()
+    raw_data_list = await adapter.fetch_all_data()
+    if raw_data_list is not None:
+        # Normalize the fetched data
+        normalized_data = adapter.normalize_all_data(raw_data_list)
+        print(f"Number of items fetched from Binance: {len(normalized_data)}")
+        print(normalized_data)
+    else:
+        print("No data fetched from Binance.")
+
 async def main():
     """Run tests for Binance, Coinbase, Kraken, Bitfinex, and KuCoin adapters."""
     print("Fetching top cryptocurrencies...")
     top_symbols = fetch_top_cryptos()  # Fetch top cryptocurrencies once
+
+    # Test fetching all data from Binance
+    await test_fetch_all_binance_data()
 
     print("Testing Binance Adapter for top 200 cryptocurrencies...")
     await test_adapter_multiple_cryptos(BinanceAdapter, top_symbols, lambda s: s.replace('/', ''))
