@@ -36,66 +36,51 @@ async def fetch_and_normalize_data(adapter):
         print(f"Error fetching data for {adapter.symbol}: {e}")
         return None  # Return None on error
 
-async def test_adapter_multiple_cryptos(adapter_class, top_symbols, symbol_normalization_func):
+async def test_adapter(adapter_class, top_symbols, symbol_normalization_func, fetch_all=False):
     """Test a specific adapter with multiple cryptocurrencies."""
-    normalized_symbols = [symbol_normalization_func(symbol) for symbol in top_symbols]
-    tasks = [fetch_and_normalize_data(adapter_class(symbol)) for symbol in normalized_symbols]
-    normalized_data_list = await asyncio.gather(*tasks)
+    print(f"Testing {'fetch_all_data' if fetch_all else 'individual fetch'} method for {adapter_class.__name__}...")
 
-    successful_fetches = sum(1 for data in normalized_data_list if data is not None)
+    adapter = adapter_class()  # Create an instance of the adapter
 
-    print(f"Number of successful fetches: {successful_fetches}")
-    for normalized_data in normalized_data_list:
-        if normalized_data:
-            print(f"{adapter_class.__name__} Normalized Data:", normalized_data)
-
-async def test_fetch_all_binance_data():
-    """Test fetching all ticker data from Binance and print the number of items."""
-    print("Testing fetch_all_data method for Binance Adapter...")
-    adapter = BinanceAdapter()
-    raw_data_list = await adapter.fetch_all_data()
-    if raw_data_list is not None:
-        # Normalize the fetched data
-        normalized_data = adapter.normalize_all_data(raw_data_list)
-        print(f"Number of items fetched from Binance: {len(normalized_data)}")
-        print(normalized_data)
+    if fetch_all:
+        raw_data_list = await adapter.fetch_all_data()
+        if raw_data_list is not None:
+            normalized_data = adapter.normalize_all_data(raw_data_list['data'] if 'data' in raw_data_list else raw_data_list)
+            print(normalized_data)
+            print(f"Number of items fetched from {adapter_class.__name__}: {len(normalized_data)}")
+        else:
+            print(f"No data fetched from {adapter_class.__name__}.")
     else:
-        print("No data fetched from Binance.")
+        normalized_symbols = [symbol_normalization_func(symbol) for symbol in top_symbols]
+        tasks = [fetch_and_normalize_data(adapter_class(symbol)) for symbol in normalized_symbols]
+        normalized_data_list = await asyncio.gather(*tasks)
+
+        successful_fetches = sum(1 for data in normalized_data_list if data is not None)
+
+        print(f"Number of successful fetches: {successful_fetches}")
+        for normalized_data in normalized_data_list:
+            if normalized_data:
+                print(f"{adapter_class.__name__} Normalized Data:", normalized_data)
 
 async def main():
-    """Run tests for Binance, Coinbase, Kraken, Bitfinex, and KuCoin adapters."""
+    """Run tests for multiple adapters."""
     print("Fetching top cryptocurrencies...")
     top_symbols = fetch_top_cryptos()  # Fetch top cryptocurrencies once
 
-    # Test fetching all data from Binance
-    await test_fetch_all_binance_data()
+    # List of adapters and their respective symbol normalization functions
+    adapters_info = [
+        (BinanceAdapter, lambda s: s.replace('/', ''), True),   # Test fetch_all_data first
+        (CoinbaseAdapter, lambda s: s.replace('/', '-'), True), # Test fetch_all_data first
+        (KrakenAdapter, lambda s: s.replace('/', ''), True),
+        (BitfinexAdapter, lambda s: 't' + s.replace('/', ''), False),  # Added BitfinexAdapter
+        (KuCoinAdapter, lambda s: s.replace('/', '-'), False),
+    ]
 
-    print("Testing Binance Adapter for top 200 cryptocurrencies...")
-    await test_adapter_multiple_cryptos(BinanceAdapter, top_symbols, lambda s: s.replace('/', ''))
-
-    # Adding a delay to prevent rate limiting
-    await asyncio.sleep(1)
-
-    print("\nTesting Coinbase Adapter for top 200 cryptocurrencies...")
-    await test_adapter_multiple_cryptos(CoinbaseAdapter, top_symbols, lambda s: s.replace('/', '-'))
-
-    # Adding a delay to prevent rate limiting
-    await asyncio.sleep(1)
-
-    print("\nTesting Kraken Adapter for top 200 cryptocurrencies...")
-    await test_adapter_multiple_cryptos(KrakenAdapter, top_symbols, lambda s: s.replace('/', ''))
-
-    # Adding a delay to prevent rate limiting
-    await asyncio.sleep(1)
-
-    print("\nTesting Bitfinex Adapter for top 200 cryptocurrencies...")
-    await test_adapter_multiple_cryptos(BitfinexAdapter, top_symbols, lambda s: 't' + s.replace('/', ''))
-
-    # Adding a delay to prevent rate limiting
-    await asyncio.sleep(1)
-
-    print("\nTesting KuCoin Adapter for top 200 cryptocurrencies...")
-    await test_adapter_multiple_cryptos(KuCoinAdapter, top_symbols, lambda s: s.replace('/', '-'))
+    # Run tests for each adapter
+    for adapter_class, symbol_normalization_func, fetch_all in adapters_info:
+        await test_adapter(adapter_class, top_symbols, symbol_normalization_func, fetch_all)
+        # Adding a delay to prevent rate limiting
+        await asyncio.sleep(1)
 
 if __name__ == "__main__":
     asyncio.run(main())
