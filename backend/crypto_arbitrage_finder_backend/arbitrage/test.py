@@ -6,6 +6,7 @@ from adapters.kraken_adapter import KrakenAdapter
 from adapters.bitfinex_adapter import BitfinexAdapter
 from adapters.kucoin_adapter import KuCoinAdapter
 from adapters.bybit_adapter import BybitAdapter  # Import the Bybit adapter
+from adapters.huobi_adapter import HuobiAdapter  # Import the Huobi adapter
 
 def fetch_top_cryptos():
     """Fetch the top cryptocurrencies from CoinGecko."""
@@ -75,7 +76,8 @@ async def main():
         (KrakenAdapter, lambda s: s.replace('/', ''), True),
         (BitfinexAdapter, lambda s: 't' + s.replace('/', ''), False),
         (KuCoinAdapter, lambda s: s.replace('/', '-'), True),
-        (BybitAdapter, lambda s: s.replace('/', ''), True),  # Add BybitAdapter to the test suite
+        (BybitAdapter, lambda s: s.replace('/', ''), True),    # Add BybitAdapter to the test suite
+        (HuobiAdapter, lambda s: s.replace('/', ''), True),     # Add HuobiAdapter to the test suite
     ]
 
     # Run tests for each adapter
