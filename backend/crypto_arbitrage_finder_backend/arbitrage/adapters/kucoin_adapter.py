@@ -3,29 +3,58 @@ import aiohttp  # Ensure aiohttp is installed
 class KuCoinAdapter:
     def __init__(self, symbol=None):
         self.symbol = symbol
-        self.api_url = 'https://api.kucoin.com/api/v1/market/orderbook/level1'  # Endpoint for latest order book level 1 data
+        self.api_url = 'https://api.kucoin.com/api/v1/market/allTickers'  # Endpoint for all tickers data
 
     async def fetch_data(self):
-        """Fetch market data from KuCoin asynchronously."""
+        """Fetch market data for a specific symbol from KuCoin asynchronously."""
         if self.symbol:
             async with aiohttp.ClientSession() as session:
-                async with session.get(self.api_url, params={'symbol': self.symbol}) as response:
+                async with session.get(self.api_url) as response:
                     if response.status == 200:
-                        return await response.json()
+                        data = await response.json()
+                        # Filter for the specific symbol in the 'ticker' list
+                        for ticker in data['data']['ticker']:
+                            if ticker['symbol'] == self.symbol:
+                                return ticker
                     else:
-                        print(f"Error fetching data for {self.symbol} from KuCoin: {response.status}, {await response.text()}")
-                        return None
+                        print(f"Error fetching data for {self.symbol} from KuCoin: {response.status}")
         return None
 
+    async def fetch_all_data(self):
+        """Fetch all ticker data from KuCoin asynchronously."""
+        async with aiohttp.ClientSession() as session:
+            async with session.get(self.api_url) as response:
+                if response.status == 200:
+                    return await response.json()  # Return the full JSON response
+                else:
+                    print(f"Error fetching all ticker data from KuCoin: {response.status}")
+                    return None
+
     def normalize_data(self, raw_data):
-        """Normalize the fetched data from KuCoin."""
-        if raw_data and 'data' in raw_data:
-            data = raw_data['data']
+        """Normalize the fetched data for a specific symbol from KuCoin."""
+        if raw_data:
             return {
-                'symbol': self.symbol,
-                'price': float(data['price']),   # Current price
-                'high': float(data.get('high', 0)),  # High price, default to 0 if not present
-                'low': float(data.get('low', 0)),    # Low price, default to 0 if not present
-                'volume': float(data.get('size', 0)), # Volume, default to 0 if not present
+                'symbol': raw_data['symbol'],
+                'price': float(raw_data['last']),
+                'high': float(raw_data['high']),
+                'low': float(raw_data['low']),
+                'volume': float(raw_data['vol']),
             }
         return None
+
+    def normalize_all_data(self, raw_data):
+        """Normalize the fetched data for all tickers from KuCoin."""
+        print("hi")
+        normalized_data = []
+        if raw_data and 'ticker' in raw_data:
+            print("hi3")
+            for ticker in raw_data['ticker']:
+                normalized_entry = {
+                    'symbol': ticker['symbol'],
+                    'price': float(ticker['last']),
+                    'high': float(ticker['high']),
+                    'low': float(ticker['low']),
+                    'volume': float(ticker['vol']),
+                }
+                normalized_data.append(normalized_entry)
+        return normalized_data

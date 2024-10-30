@@ -73,7 +73,7 @@ async def main():
         (CoinbaseAdapter, lambda s: s.replace('/', '-'), True), # Test fetch_all_data first
         (KrakenAdapter, lambda s: s.replace('/', ''), True),
         (BitfinexAdapter, lambda s: 't' + s.replace('/', ''), False),  # Added BitfinexAdapter
-        (KuCoinAdapter, lambda s: s.replace('/', '-'), False),
+        (KuCoinAdapter, lambda s: s.replace('/', '-'), True),
     ]
 
     # Run tests for each adapter
