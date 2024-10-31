@@ -29,7 +29,7 @@ const TradeLegComponent = () => {
                     type="text"
                     placeholder="No. of Coins"
                     defaultValue="1" // Default value for the first input
-                    className="rounded-[5px] h-10 w-32 px-4 mx-2 bg-[#D9D9D9] text-black border border-transparent focus:outline-none focus:border-blue-500"
+                    className="rounded-[5px] h-10 w-32 px-4 mx-2 bg-[#D9D9D9] text-black border border-transparent focus:outline-none focus:border-[#592FA2]"
                 />
 
                 <div className="text-white font-bold mx-4">
@@ -40,7 +40,7 @@ const TradeLegComponent = () => {
                     type="text"
                     placeholder="Price of coin"
                     defaultValue="$68,203.69" // Default value for the second input
-                    className="rounded-[5px] h-10 w-32 px-4 mx-2 bg-[#D9D9D9] text-black border border-transparent focus:outline-none focus:border-blue-500"
+                    className="rounded-[5px] h-10 w-32 px-4 mx-2 bg-[#D9D9D9] text-black border border-transparent focus:outline-none focus:border-[#592FA2]"
                 />
             </div>
         </div>

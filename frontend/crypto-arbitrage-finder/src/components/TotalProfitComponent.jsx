@@ -9,7 +9,7 @@ const TotalProfitComponent = () => {
                 <div className="w-full bg-[#373B47] h-full rounded-[5px] flex justify-center items-center"> {/* Center the items */}
 
                     <div className="bg-[#202229] rounded-[5px] w-1/3 flex flex-col justify-center items-center mx-2 h-3/4"> {/* Add h-full for full height */}
-                        <div className="text-white font-semibold text-xl"> {/* Remove m-8 to prevent additional spacing */}
+                        <div className="text-[#28ad46] font-semibold text-xl"> {/* Remove m-8 to prevent additional spacing */}
                             $320.30
                         </div>
                     </div>
