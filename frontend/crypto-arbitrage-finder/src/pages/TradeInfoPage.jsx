@@ -22,12 +22,12 @@ const TradeInfoPage = () => {
 
       {/* Centering the div with "hi" */}
       <div className="flex justify-center mt-12">
-        <div className="w-1/2">
+        <div className="w-3/5">
           <div class = "mb-8">
             <TradeLegComponent> </TradeLegComponent>
           </div>
           
-          <div class = "mb-8">
+          <div class = "mb-16">
             <TradeLegComponent> </TradeLegComponent>
           </div>
 

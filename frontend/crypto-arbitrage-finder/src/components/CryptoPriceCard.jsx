@@ -26,14 +26,14 @@ const CryptoPriceCard = () => {
 
                         {/* Center Item */}
                         <div className="flex items-center justify-center h-full mt-4">
-                            <img src={GreenArrowUp} alt="Arrow Up" className="h-10 mr-2" />
-                            <div className="text-white font-bold text-3xl mr-[2vw]">
+                            <img src={GreenArrowUp} alt="Arrow Up" className="h-8 mr-2" />
+                            <div className="text-white font-bold text-3xl mr-[1vw]">
                                 $68,203.69
                             </div>
                         </div>
 
                         {/* Right Item */}
-                        <div className="flex items-center">
+                        <div className="flex items-center mr-2">
                             <img src={Coinbase} alt="Logo" className="h-12 ml-1 mr-2" />
                             <div className="flex flex-col">
                                 <div className="text-white font-semibold mr-8">Coinbase</div>
