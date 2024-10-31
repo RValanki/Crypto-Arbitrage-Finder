@@ -74,10 +74,10 @@ async def main():
         (BinanceAdapter, lambda s: s.replace('/', ''), True),   # Test fetch_all_data first
         (CoinbaseAdapter, lambda s: s.replace('/', '-'), True), # Test fetch_all_data first
         (KrakenAdapter, lambda s: s.replace('/', ''), True),
-        (BitfinexAdapter, lambda s: 't' + s.replace('/', ''), False),
         (KuCoinAdapter, lambda s: s.replace('/', '-'), True),
         (BybitAdapter, lambda s: s.replace('/', ''), True),    # Add BybitAdapter to the test suite
         (HuobiAdapter, lambda s: s.replace('/', ''), True),     # Add HuobiAdapter to the test suite
+        (BitfinexAdapter, lambda s: 't' + s.replace('/', ''), True),
     ]
 
     # Run tests for each adapter
