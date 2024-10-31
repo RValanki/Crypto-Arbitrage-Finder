@@ -4,6 +4,7 @@ import React from 'react';
 import Bitcoin from "../assets/Bitcoin.png";
 import Coinbase from "../assets/Coinbase.png";
 import GreenArrowUp from "../assets/GreenArrowUp.png";
+import ExchangeInfoCard from './ExchangeInfoCard';
 
 const CryptoPriceCard = () => {
     return (
@@ -69,23 +70,7 @@ const CryptoPriceCard = () => {
                 </div>
             </div>
 
-            <div className="w-full h-1/4 bg-[#2B2F38] rounded-[5px] p-2">
-                <div className="w-full h-full bg-[#373B47] rounded-[5px] flex items-center justify-between p-12">
-                    <img src={Coinbase} alt="Logo" className="h-12 ml-1" />
-                    <div className="flex flex-col justify-center">
-                        <div className="text-white font-semibold mr-8">Coinbase</div>
-                    </div>
-                    <div className="bg-[#202229] rounded-[5px] w-1/4 flex flex-col justify-center items-center mr-4">
-                        <div className="text-[#B4B4B4] text-sm mt-2">Maker fee</div>
-                        <div className="text-white font-semibold mb-2">0.002%</div>
-                    </div>
-                    <div className="bg-[#202229] rounded-[5px] w-1/4 flex flex-col justify-center items-center">
-                        <div className="text-[#B4B4B4] text-sm mt-2">Taker fee</div>
-                        <div className="text-white font-semibold mb-2">0.004%</div>
-                    </div>
-                </div>
-
-            </div>
+            <ExchangeInfoCard> </ExchangeInfoCard>
         </div>
     );
 };
