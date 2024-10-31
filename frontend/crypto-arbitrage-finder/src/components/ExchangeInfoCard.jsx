@@ -3,8 +3,8 @@ import Coinbase from "../assets/Coinbase.png";
 
 const ExchangeInfoCard = () => {
     return (
-        <div className="w-full h-1/4 bg-[#2B2F38] rounded-[5px] p-2">
-                <div className="w-full h-full bg-[#373B47] rounded-[5px] flex items-center justify-between p-12">
+        <div className="w-full h-1/4 bg-[#1F2025] rounded-[5px] p-2">
+                <div className="w-full h-full bg-[#2B2F38] rounded-[5px] flex items-center justify-between p-12">
                     <img src={Coinbase} alt="Logo" className="h-12 ml-1" />
                     <div className="flex flex-col justify-center">
                         <div className="text-white font-semibold mr-8">Coinbase</div>

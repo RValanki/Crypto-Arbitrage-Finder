@@ -6,7 +6,7 @@ const TradeLegComponent = () => {
     return (
         <div className="h-full w-full px-4">
             <div className="text-2xl font-bold text-[#C2C2C2] mb-4">Buy Trade Leg</div>
-            <div className="w-full bg-[#373B47] h-[120px] rounded-[5px] flex flex-row items-center">
+            <div className="w-full bg-[#2B2F38] h-[120px] rounded-[5px] flex flex-row items-center">
                 <div className="flex flex-row items-center ml-8 font-bold">
                     <p className="mr-1 text-[#10A91A]">Buy</p>
                     <p className="text-white">BTC/USD from</p>
