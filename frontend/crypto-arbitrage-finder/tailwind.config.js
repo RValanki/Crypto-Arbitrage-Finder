@@ -8,6 +8,15 @@ module.exports = {
       colors: {
         'background-gray': '#181A1F', // Add your custom color here
       },
+      animation: {
+        fadeIn: 'fadeIn 0.5s ease-in-out forwards', // Animation for fade-in effect
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
     },
   },
   plugins: [],
