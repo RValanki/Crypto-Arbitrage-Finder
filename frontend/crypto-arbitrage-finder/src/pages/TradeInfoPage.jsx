@@ -7,7 +7,7 @@ const TradeInfoPage = () => {
   return (
     <div>
       <TopBar /> {/* Add the TopBar component here */}
-      <div class="flex mt-24">
+      <div class="flex mt-28">
         <div class="flex justify-center w-1/2 h-[500px] ml-48 px-8">
           <CryptoPriceCard> </CryptoPriceCard>
         </div>
