@@ -7,9 +7,9 @@ import Bitcoin from "../assets/Bitcoin.png";
 import GreenArrowUp from "../assets/GreenArrowUp.png";
 import RedArrowDown from "../assets/RedArrowDown.png";
 
-const ArbitragePair = ({ id }) => { // Accept id as a prop
+const ArbitragePair = () => { // Accept id as a prop
     return (
-        <Link to={`/arbitragepair/${id}`}> {/* Link to the TradeInfoPage with id */}
+        <Link to={`/arbitragepair`}> {/* Link to the TradeInfoPage with id */}
             <div className="w-full h-[10vh] bg-[#2B2F38] rounded-[5px] mb-2.5 p-2 group hover:bg-[#373B47] transition-colors duration-300 ease-in-out cursor-pointer">
                 <div className="flex h-full">
                     {/* First column: 2/5 of the width */}

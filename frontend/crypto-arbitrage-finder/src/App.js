@@ -31,7 +31,7 @@ function App() {
         {/* Define the routes */}
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/arbitragepair/:id" element={<TradeInfoPage />} />
+          <Route path="/arbitragepair" element={<TradeInfoPage />}/> 
         </Routes>
       </div>
     </Router>
