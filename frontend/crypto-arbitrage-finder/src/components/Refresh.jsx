@@ -3,7 +3,7 @@ import Button from './Button';
 
 const Refresh = ({ onRefresh }) => {
   return (
-    <div className="w-full h-full p-3 flex flex-col items-center max-h-[150px]"> {/* Set max height */}
+    <div className="w-full h-full p-3 flex flex-col items-center max-h-[150px] min-w-[290px]"> {/* Set max height */}
       <Button 
         label="Refresh" 
         onClick={onRefresh} 

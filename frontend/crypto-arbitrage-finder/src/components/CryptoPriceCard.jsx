@@ -11,7 +11,7 @@ const CryptoPriceCard = () => {
         <div className="w-full h-full">
             <div className="flex justify-center text-2xl font-bold text-[#C2C2C2] mb-4">Exchange 1</div>
 
-            <div className="w-full h-3/5 bg-[#1F2025] rounded-[5px] p-2 mb-4">
+            <div className="w-full h-3/5 bg-[#1F2025] rounded-[5px] p-2 mb-4 md:min-w-[430px] ">
                 <div className="w-full h-full bg-[#2B2F38] rounded-[5px] p-4 flex flex-col justify-between">
 
                     <div className="flex justify-between items-start h-full">
