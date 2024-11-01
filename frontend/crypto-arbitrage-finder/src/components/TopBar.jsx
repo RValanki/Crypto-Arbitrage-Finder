@@ -85,6 +85,19 @@ const TopBar = () => {
                 <li>
                   <a href="#" className="block px-4 py-2 text-white hover:bg-gray-700">Contacts</a>
                 </li>
+
+                <div className="sm:hidden">
+                <li>
+                  <a href="#" className="block px-4 py-2 text-white hover:bg-gray-700">Sign Up</a>
+                </li>
+                <li>
+                  <a href="#" className="block px-4 py-2 text-white hover:bg-gray-700">Sign In</a>
+                </li>
+                <li>
+                  <a href="#" className="block px-4 py-2 text-white hover:bg-gray-700">Settings</a>
+                </li>
+                </div>
+                
               </ul>
             </div>
           )}
