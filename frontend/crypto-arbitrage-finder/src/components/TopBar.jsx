@@ -5,6 +5,9 @@ import logo from '../assets/logo.png';
 import settingsIcon from '../assets/settings.png';
 import Button from './Button';
 
+// Import your icon library here (e.g., Font Awesome, Material Icons)
+import { FaHome, FaInfoCircle, FaEnvelope, FaPhone, FaUserPlus, FaSignInAlt } from 'react-icons/fa'; // Example with react-icons
+
 const TopBar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -36,19 +39,31 @@ const TopBar = () => {
   return (
     <div className={`fixed top-0 left-0 right-0 p-4 text-white flex items-center bg-[#181A1F] z-50 transition-shadow duration-300 ${scrolled ? 'shadow-lg' : ''}`}>
       <div className="flex items-center">
-        <img src={logo} alt="Logo" className="h-16 ml-6 md-lg:mr-2 mr-0" />
+        <img src={logo} alt="Logo" className="h-16 ml-6 md-lg:mr-8 mr-0" />
       </div>
 
       <nav className="flex-grow">
         <ul className="hidden md-lg:flex space-x-10">
           <li>
-            <Link to="/" onClick={handleHomeClick} className="hover:text-gray-400">
-              Home
+            <Link to="/" onClick={handleHomeClick} className="flex items-center hover:text-gray-400">
+               Home
             </Link>
           </li>
-          <li><a href="#" className="hover:text-gray-400">About</a></li>
-          <li><a href="#" className="hover:text-gray-400">Contact</a></li>
-          <li><a href="#" className="hover:text-gray-400">Contacts</a></li>
+          <li>
+            <Link to="/about" className="flex items-center hover:text-gray-400">
+               About
+            </Link>
+          </li>
+          <li>
+            <Link to="/contact" className="flex items-center hover:text-gray-400">
+               Contact
+            </Link>
+          </li>
+          <li>
+            <Link to="/contacts" className="flex items-center hover:text-gray-400">
+               Contacts
+            </Link>
+          </li>
         </ul>
 
         {/* Dropdown for smaller screens */}
@@ -72,30 +87,42 @@ const TopBar = () => {
             <div className="sm:absolute sm:left-0 absolute right-0 mt-8 w-48 bg-[#2B2F38] rounded-md shadow-lg z-10">
               <ul className="py-1">
                 <li>
-                  <Link to="/" onClick={handleHomeClick} className="block px-4 py-2 text-white hover:bg-gray-700">
-                    Home
+                  <Link to="/" onClick={handleHomeClick} className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
+                    <FaHome className="mr-2" /> Home
                   </Link>
                 </li>
                 <li>
-                  <a href="#" className="block px-4 py-2 text-white hover:bg-gray-700">About</a>
+                  <Link to="/about" className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
+                    <FaInfoCircle className="mr-2" /> About
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="block px-4 py-2 text-white hover:bg-gray-700">Contact</a>
+                  <Link to="/contact" className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
+                    <FaEnvelope className="mr-2" /> Contact
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="block px-4 py-2 text-white hover:bg-gray-700">Contacts</a>
+                  <Link to="/contacts" className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
+                    <FaEnvelope className="mr-2" /> Contacts
+                  </Link>
                 </li>
 
                 <div className="sm:hidden">
-                <li>
-                  <a href="#" className="block px-4 py-2 text-white hover:bg-gray-700">Sign Up</a>
-                </li>
-                <li>
-                  <a href="#" className="block px-4 py-2 text-white hover:bg-gray-700">Sign In</a>
-                </li>
-                <li>
-                  <a href="#" className="block px-4 py-2 text-white hover:bg-gray-700">Settings</a>
-                </li>
+                  <li>
+                    <Link to="/signup" className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
+                      <FaUserPlus className="mr-2" /> Sign Up
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/signin" className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
+                      <FaSignInAlt className="mr-2" /> Sign In
+                    </Link>
+                  </li>
+                  <li>
+                    <a href="#" className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
+                      <img src={settingsIcon} alt="Settings" className="h-4 w-4 mr-2" /> Settings
+                    </a>
+                  </li>
                 </div>
                 
               </ul>
