@@ -10,10 +10,15 @@ import RedArrowDown from "../assets/RedArrowDown.png";
 const ArbitragePair = () => { // Accept id as a prop
     return (
         <Link to={`/arbitragepair`}> {/* Link to the TradeInfoPage with id */}
-            <div className="w-full h-[10vh] bg-[#2B2F38] rounded-[5px] mb-2.5 p-2 group hover:bg-[#373B47] transition-colors duration-300 ease-in-out cursor-pointer">
+            <div className="w-full  bg-[#2B2F38] rounded-[5px] mb-2.5 p-2 group hover:bg-[#373B47] transition-colors duration-300 ease-in-out cursor-pointer">
+
                 <div className="animate-fadeIn flex h-full">
-                    {/* First column: 2/5 of the width */}
-                    <div className="flex-[3] bg-[#373B47] p-2 rounded-[20px] flex items-center">
+
+                    <div className="flex md-lg:flex-row flex-col mr-2 w-2/3">
+
+
+                        {/* First column: 2/5 of the width */}
+                    <div className="md-lg:w-1/2 w-full flex bg-[#373B47] p-2 rounded-[20px] flex items-center md-lg:mb-0 mb-2 py-4 mr-0 md-lg:mr-2 justify-center">
                         <img src={Bitcoin} alt="Logo" className="h-9 ml-1 mr-2" />
                         <div className="flex items-center justify-center text-white font-bold text-xs">
                             BTC/USD
@@ -29,7 +34,7 @@ const ArbitragePair = () => { // Accept id as a prop
                     </div>
 
                     {/* Second column: 2/5 of the width */}
-                    <div className="flex-[3] bg-[#373B47] p-2 rounded-[20px] mx-2 flex items-center">
+                    <div className="md-lg:w-1/2 w-full flex bg-[#373B47] p-2 rounded-[20px] flex items-center py-4 justify-center">
                         <img src={Bitcoin} alt="Logo" className="h-9 ml-1 mr-2" />
                         <div className="flex items-center justify-center text-white font-bold text-xs">
                             BTC/USD
@@ -44,8 +49,14 @@ const ArbitragePair = () => { // Accept id as a prop
                         </div>
                     </div>
 
+                         
+                    </div>
+                    
+
+
+
                     {/* Third column: 1/5 of the width */}
-                    <div className="flex-[2.5] bg-[#373B47] p-2 rounded-[20px] flex flex-wrap ">
+                    <div className="md-lg:w-1/3 w-1/3 flex bg-[#373B47] p-2 rounded-[20px] flex flex-wrap justify-center">
                         <div className="flex items-center justify-center text-white font-semibold text-sm ml-2">
                             Profit
                         </div>
