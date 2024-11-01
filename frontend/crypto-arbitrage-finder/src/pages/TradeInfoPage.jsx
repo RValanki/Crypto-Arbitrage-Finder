@@ -10,6 +10,7 @@ const TradeInfoPage = () => {
   return (
     <div>
       <TopBar /> {/* Add the TopBar component here */}
+      <div class = "animate-fadeInFast">
       <div className="flex mt-28">
         <div className="flex justify-center w-1/2 h-[500px] ml-48 px-8">
           <CryptoPriceCard />
@@ -37,6 +38,7 @@ const TradeInfoPage = () => {
         </div>
 
        
+      </div>
       </div>
     </div>
   );

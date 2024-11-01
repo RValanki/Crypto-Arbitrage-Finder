@@ -6,11 +6,13 @@ import './styling/index.css'; // Import global styles
 import './styling/App.css'; // Import additional styles
 import HomePage from './pages/HomePage'; // Import HomePage from the pages directory
 import TradeInfoPage from './pages/TradeInfoPage';
+import ScrollToTop from './components/ScrollToTop';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
+    <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} /> {/* Set HomePage as the default route */}
         <Route path="/arbitragepair" element={<TradeInfoPage />}/> 

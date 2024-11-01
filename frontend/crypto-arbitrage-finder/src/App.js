@@ -4,10 +4,12 @@ import logo from './logo.svg'; // Assuming you have a logo.svg
 import './styling/App.css'; // Keep this to include any specific styles
 import HomePage from './pages/HomePage'; // Import the HomePage component
 import TradeInfoPage from './pages/TradeInfoPage'
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="App flex flex-col items-center justify-center min-h-screen text-white bg-gray-800">
         <header className="App-header flex flex-col items-center justify-center">
           <img
