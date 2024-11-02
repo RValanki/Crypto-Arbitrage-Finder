@@ -49,7 +49,7 @@ const TopBar = () => {
     <>
       {/* Alert Banner */}
       {showAlert && (
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 60 }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 60 }}>
           <AlertBanner
             message="Refreshed Successfully!"
             type="info" // Change to "error", "warning", or "info" as needed
@@ -67,22 +67,22 @@ const TopBar = () => {
           <ul className="hidden md-lg:flex space-x-10">
             <li>
               <Link to="/" onClick={handleHomeClick} className="flex items-center hover:text-gray-400">
-                 Home
+                Home
               </Link>
             </li>
             <li>
               <Link to="/about" className="flex items-center hover:text-gray-400">
-                 About
+                About
               </Link>
             </li>
             <li>
               <Link to="/contact" className="flex items-center hover:text-gray-400">
-                 Contact
+                Contact
               </Link>
             </li>
             <li>
               <Link to="/contacts" className="flex items-center hover:text-gray-400">
-                 Contacts
+                Contacts
               </Link>
             </li>
           </ul>
