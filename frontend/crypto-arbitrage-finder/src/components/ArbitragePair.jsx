@@ -18,57 +18,68 @@ const ArbitragePair = () => { // Accept id as a prop
 
 
                         {/* First column: 2/5 of the width */}
-                    <div className="md-lg:w-1/2 w-full flex bg-[#373B47] p-2 rounded-[20px] flex items-center md-lg:mb-0 mb-2 py-4 mr-0 md-lg:mr-2 justify-center">
-                        <img src={Bitcoin} alt="Logo" className="h-9 ml-1 mr-2" />
-                        <div className="flex items-center justify-center text-white font-bold text-xs">
-                            BTC/USD
+                        <div className="md-lg:w-1/2 w-full flex bg-[#373B47] p-2 rounded-[20px] flex items-center md-lg:mb-0 mb-2 py-4 mr-0 md-lg:mr-2 justify-center">
+                            <img src={Bitcoin} alt="Logo" className="h-9 ml-1 mr-2" />
+                            <div className="flex items-center justify-center text-white font-bold text-xs">
+                                BTC/USD
+                            </div>
+                            <div className="flex items-center justify-center bg-[#2B2F38] ml-2 p-2 h-[4vh] rounded-[5px] text-white">
+                                <img src={CoinBase} alt="Logo" className="h-4 ml-1 mr-2" />
+                                Coinbase
+                            </div>
+                            <img src={RedArrowDown} alt="Logo" className="h-2 ml-2" />
+                            <div className="flex items-center justify-center text-white font-bold text-xs ml-1">
+                                $68,203.69
+                            </div>
                         </div>
-                        <div className="flex items-center justify-center bg-[#2B2F38] ml-2 p-2 h-[4vh] rounded-[5px] text-white">
-                            <img src={CoinBase} alt="Logo" className="h-4 ml-1 mr-2" />
-                            Coinbase
+
+                        {/* Second column: 2/5 of the width */}
+                        <div className="md-lg:w-1/2 w-full flex bg-[#373B47] p-2 rounded-[20px] flex items-center py-4 justify-center">
+                            <img src={Bitcoin} alt="Logo" className="h-9 ml-1 mr-2" />
+                            <div className="flex items-center justify-center text-white font-bold text-xs">
+                                BTC/USD
+                            </div>
+                            <div className="flex items-center justify-center bg-[#2B2F38] ml-2 p-2 h-[4vh] rounded-[5px] text-white">
+                                <img src={Binance} alt="Logo" className="h-4 ml-1 mr-2" />
+                                Binance
+                            </div>
+                            <img src={GreenArrowUp} alt="Logo" className="h-2 ml-2" />
+                            <div className="flex items-center justify-center text-white font-bold text-xs ml-1">
+                                $68,523.89
+                            </div>
                         </div>
-                        <img src={RedArrowDown} alt="Logo" className="h-2 ml-2" />
-                        <div className="flex items-center justify-center text-white font-bold text-xs ml-1">
-                            $68,203.69
-                        </div>
+
+
                     </div>
 
-                    {/* Second column: 2/5 of the width */}
-                    <div className="md-lg:w-1/2 w-full flex bg-[#373B47] p-2 rounded-[20px] flex items-center py-4 justify-center">
-                        <img src={Bitcoin} alt="Logo" className="h-9 ml-1 mr-2" />
-                        <div className="flex items-center justify-center text-white font-bold text-xs">
-                            BTC/USD
-                        </div>
-                        <div className="flex items-center justify-center bg-[#2B2F38] ml-2 p-2 h-[4vh] rounded-[5px] text-white">
-                            <img src={Binance} alt="Logo" className="h-4 ml-1 mr-2" />
-                            Binance
-                        </div>
-                        <img src={GreenArrowUp} alt="Logo" className="h-2 ml-2" />
-                        <div className="flex items-center justify-center text-white font-bold text-xs ml-1">
-                            $68,523.89
-                        </div>
-                    </div>
-
-                         
-                    </div>
-                    
 
 
 
                     {/* Third column: 1/5 of the width */}
                     <div className="md-lg:w-1/3 w-1/3 flex bg-[#373B47] p-2 rounded-[20px] flex flex-wrap justify-center">
-                        <div className="flex items-center justify-center text-white font-semibold text-sm ml-2">
-                            Profit
+
+                        <div className="flex md-lg:flex-row flex-col justify-center">
+
+                            <div className='flex flex-row justify-center'>
+                                <div className="flex items-center justify-center text-white font-semibold text-sm ml-2">
+                                    Profit
+                                </div>
+                                <div className="flex items-center justify-center bg-[#2B2F38] ml-2 font-bold p-2 my-1 rounded-[5px] text-[#10A91A]">
+                                    2.3%
+                                </div>
+                            </div>
+
+                            <div className='flex flex-row'>
+                                <div className="flex items-center justify-center text-white font-semibold text-sm ml-2">
+                                    After fees
+                                </div>
+                                <div className="flex items-center justify-center bg-[#2B2F38] ml-2 font-bold p-2 my-1 rounded-[5px] text-[#10A91A]">
+                                    1.1%
+                                </div>
+                            </div>
+
                         </div>
-                        <div className="flex items-center justify-center bg-[#2B2F38] ml-2 font-bold p-2 my-1 rounded-[5px] text-[#10A91A]">
-                            2.3%
-                        </div>
-                        <div className="flex items-center justify-center text-white font-semibold text-sm ml-2">
-                            After fees
-                        </div>
-                        <div className="flex items-center justify-center bg-[#2B2F38] ml-2 font-bold p-2 my-1 rounded-[5px] text-[#10A91A]">
-                            1.1%
-                        </div>
+
                     </div>
                 </div>
             </div>
