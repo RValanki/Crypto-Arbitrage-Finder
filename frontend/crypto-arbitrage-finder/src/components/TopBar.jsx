@@ -44,7 +44,7 @@ const TopBar = () => {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
-
+  // md-lg:border-b-[0px]
   return (
     <>
       {/* Alert Banner */}
@@ -57,8 +57,8 @@ const TopBar = () => {
           />
         </div>
       )}
-
-      <div className={`md-lg:border-b-[0px] border-b-[0.1px] md-lg:border-[#323336] border-[#323336] fixed top-0 left-0 right-0 p-4 text-white flex items-center bg-[#181A1F] z-50 transition-shadow duration-300 ${scrolled ? 'shadow-lg' : ''}`}>
+      
+      <div className={` border-b-[0.1px] md-lg:border-[#323336] border-[#323336] fixed top-0 left-0 right-0 p-4 text-white flex items-center bg-[#181A1F] z-50 transition-shadow duration-300 ${scrolled ? 'shadow-lg' : ''}`}>
         <div className="flex items-center">
           <img src={logo} alt="Logo" className="h-16 ml-6 md-lg:mr-8 mr-0" />
         </div>
@@ -163,3 +163,4 @@ const TopBar = () => {
 };
 
 export default TopBar;
+  
