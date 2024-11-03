@@ -22,7 +22,15 @@
 
           <div className="flex md-lg:flex-row flex-col">
           <div className="flex-[5] p-4 sm:px-12 md-lg:px-4 px-4">
-            <h2 className="text-white">First Column</h2>
+            <div className='flex flex-row'>
+              <h2 className="md-lg:block hidden text-white w-1/3 flex justify-center font-semibold text-center">Exchange 1</h2>
+              <h2 className=" md-lg:hidden block text-white w-2/3 flex justify-center font-semibold text-center">Exchanges</h2>
+              <h2 className=" md-lg:block hidden text-white w-1/3 flex justify-center font-semibold text-center">Exchange 2</h2>
+             
+
+              <h2 className="text-white w-1/3 flex justify-center font-semibold">Profit</h2>
+            </div>
+            
 
             <div className="w-full   bg-[#1F2025] rounded-[5px] p-2 md-lg:min-w-[1000px] min-w-[500px]">
               {/* Content for the first column */}
