@@ -12,7 +12,7 @@ const TopBar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const location = useLocation();
   
-  const [showAlert, setShowAlert] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleCloseAlert = () => setShowAlert(false);
 
