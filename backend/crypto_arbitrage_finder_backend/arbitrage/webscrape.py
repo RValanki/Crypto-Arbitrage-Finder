@@ -1,5 +1,46 @@
 import requests
+import time
 
+def get_all_coin_names(retries=5):
+    """Fetch all cryptocurrency names from CoinGecko and return as a list."""
+    url = "https://api.coingecko.com/api/v3/coins/list"
+    
+    for attempt in range(retries):
+        response = requests.get(url)
+        
+        if response.status_code == 200:
+            data = response.json()
+            coin_names = {coin['id']: coin['name'] for coin in data}  # Store as a dictionary for easy lookup
+            return coin_names
+        elif response.status_code == 429:
+            print("Rate limit exceeded. Retrying...")
+            time.sleep(2 ** attempt)  # Exponential backoff
+        else:
+            print(f"Failed to retrieve data. Status code: {response.status_code}")
+            return None
+    
+    print("Max retries reached. Unable to fetch data.")
+    return None
+
+def fetch_ticker_data(coin_id, retries=5):
+    """Fetch ticker data for a specified cryptocurrency ID from CoinGecko."""
+    url = f"https://api.coingecko.com/api/v3/coins/{coin_id}/tickers"
+    
+    for attempt in range(retries):
+        response = requests.get(url)
+        
+        if response.status_code == 200:
+            return response.json()  # Return the full JSON response
+        elif response.status_code == 429:
+            print("Rate limit exceeded. Retrying...")
+            time.sleep(2 ** attempt)  # Exponential backoff
+        else:
+            print(f"Failed to retrieve ticker data for {coin_id}. Status code: {response.status_code}")
+            return None
+    
+    print("Max retries reached. Unable to fetch data.")
+    return None
+    
 def fetch_market_data(ticker):
     url = f"https://api.coingecko.com/api/v3/coins/{ticker}/tickers"
     response = requests.get(url)
@@ -20,7 +61,6 @@ def fetch_market_data(ticker):
                 "market": ticker_data["market"]  # Store market info for detailed exchange info
             }
             result.append(market_info)
-        
         return result
     else:
         print(f"Failed to retrieve data. Status code: {response.status_code}")
@@ -83,10 +123,23 @@ def find_arbitrage_opportunities(market_data):
 
     return arbitrage_opportunities
 
+
 # Example usage
 btc_market_data = fetch_market_data("bitcoin")
 if btc_market_data:
     arbitrage_opportunities = find_arbitrage_opportunities(btc_market_data)
     for opportunity in arbitrage_opportunities:
         print(opportunity)
-        print('n')
+        print('\n')
+
+coin_names = get_all_coin_names()
+if coin_names is not None:
+    print("Available cryptocurrencies:")
+    for id, name in coin_names.items():
+        print(f"{id}: {name}")
+
+    # Now you can fetch ticker data for a specific coin, for example, Bitcoin
+    bitcoin_data = fetch_ticker_data("bitcoin")
+    if bitcoin_data:
+        print("\nTicker data for Bitcoin:")
+        print(bitcoin_data)
