@@ -1,8 +1,11 @@
 import aiohttp  # Ensure aiohttp is installed
+import asyncio
 
 class KrakenAdapter:
     def __init__(self):
         self.api_url = 'https://api.kraken.com/0/public/Ticker'  # Endpoint for ticker information
+        # Known quote currencies
+        self.quote_currencies = ['BTC', 'ETH', 'USDT', 'BUSD', 'USDC', 'FDUSD', 'USD', 'BNB', 'PAX', 'TUSD', 'XRP', 'NGN', 'TRX', 'RUB', 'TRY', 'EUR', 'ZAR', 'KRW', 'IDRT', 'BIDR', 'AUD', 'DAI', 'BRL', 'RUB', 'BVND', 'GBP', 'BRL', 'UAH', 'COPS', 'XBT', 'CHF', 'CAD', 'JPY']
 
     async def fetch_data(self, symbol):
         """Fetch market data for a specific symbol from Kraken asynchronously."""
@@ -31,9 +34,10 @@ class KrakenAdapter:
 
     def normalize_data(self, ticker_info, symbol):
         """Normalize the fetched data from Kraken."""
+        formatted_symbol = self.format_symbol(symbol)
         if ticker_info:
             return {
-                'symbol': symbol,
+                'symbol': formatted_symbol,
                 'price': float(ticker_info['c'][0]),  # Current price (last trade closed)
                 'high': float(ticker_info['h'][0]),    # Today's high price
                 'low': float(ticker_info['l'][0]),     # Today's low price
@@ -49,3 +53,32 @@ class KrakenAdapter:
             if normalized_entry:  # Only append if normalization was successful
                 normalized_data.append(normalized_entry)
         return normalized_data
+
+    def format_symbol(self, symbol):
+        """Format the Kraken symbol as BASE/QUOTE."""
+        # Check for known quote currency in the symbol to determine base/quote split
+        quote = next((q for q in self.quote_currencies if symbol.endswith(q)), None)
+        if quote:
+            base = symbol.replace(quote, '')
+            return f"{base}/{quote}"
+        return symbol  # Return the original symbol if quote currency not found
+
+    async def save_all_normalized_data_to_file(self, file_path):
+        """Fetch, normalize, and save all ticker data to a text file."""
+        raw_data = await self.fetch_all_data()
+        if raw_data:
+            normalized_data = self.normalize_all_data(raw_data)
+            with open(file_path, 'w') as file:
+                for data in normalized_data:
+                    file.write(str(data) + "\n")
+            print(f"All normalized data saved to {file_path}")
+        else:
+            print("No data to save.")
+
+# Example usage:
+async def main():
+    kraken_adapter = KrakenAdapter()
+    await kraken_adapter.save_all_normalized_data_to_file("kraken_ticker_data.txt")
+
+# Run the main function
+asyncio.run(main())
