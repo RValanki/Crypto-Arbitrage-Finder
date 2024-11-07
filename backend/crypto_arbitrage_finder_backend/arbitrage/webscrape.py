@@ -40,7 +40,7 @@ def fetch_ticker_data(coin_id, retries=5):
     
     print("Max retries reached. Unable to fetch data.")
     return None
-    
+
 def fetch_market_data(ticker):
     url = f"https://api.coingecko.com/api/v3/coins/{ticker}/tickers"
     response = requests.get(url)
@@ -123,6 +123,24 @@ def find_arbitrage_opportunities(market_data):
 
     return arbitrage_opportunities
 
+def test_rate_limits(batch_size=10, retries=5):
+    """Test how many requests can be made before hitting the rate limit."""
+    coin_names = get_all_coin_names()
+    if not coin_names:
+        return
+    
+    coins = list(coin_names.keys())
+    total_calls = 0
+    while total_calls < len(coins):
+        for i in range(total_calls, min(total_calls + batch_size, len(coins))):
+            coin_id = coins[i]
+            response = fetch_ticker_data(coin_id, retries)
+            if response is None:
+                print(f"Failed to fetch data for {coin_id}. Stopping.")
+                return
+        total_calls += batch_size
+
+    print(f"Total successful calls: {total_calls}")
 
 # Example usage
 btc_market_data = fetch_market_data("bitcoin")
@@ -132,14 +150,5 @@ if btc_market_data:
         print(opportunity)
         print('\n')
 
-coin_names = get_all_coin_names()
-if coin_names is not None:
-    print("Available cryptocurrencies:")
-    for id, name in coin_names.items():
-        print(f"{id}: {name}")
-
-    # Now you can fetch ticker data for a specific coin, for example, Bitcoin
-    bitcoin_data = fetch_ticker_data("bitcoin")
-    if bitcoin_data:
-        print("\nTicker data for Bitcoin:")
-        print(bitcoin_data)
+# Test the rate limits
+test_rate_limits()
