@@ -74,14 +74,3 @@ class BybitAdapter:
                 file.write(f"{entry}\n")
         print(f"Normalized data saved to {file_path}")
 
-# Example usage:
-async def main():
-    bybit_adapter = BybitAdapter(symbol="BTCUSDT")
-    raw_data = await bybit_adapter.fetch_all_data()
-    if raw_data:
-        normalized_data = bybit_adapter.normalize_all_data(raw_data)
-        bybit_adapter.save_normalized_data_to_file(normalized_data)
-
-# Run the main function
-import asyncio
-asyncio.run(main())

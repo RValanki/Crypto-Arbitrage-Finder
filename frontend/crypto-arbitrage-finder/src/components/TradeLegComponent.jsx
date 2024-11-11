@@ -6,7 +6,7 @@ const TradeLegComponent = () => {
     return (
         <div className="h-full w-full px-4 md-lg:min-w-[910px] min-w-[0px]">
             <div className="text-2xl font-bold text-[#C2C2C2] mb-4">Buy Trade Leg</div>
-            <div className="w-full bg-[#2B2F38] md-lg:min-h-[120px] min-h-[150px] rounded-[5px] flex md-lg:flex-row flex-col items-center">
+            <div className="w-full bg-[#2B2F38] md-lg:min-h-[120px] min-h-[150px] rounded-[5px] flex md-lg:flex-row flex-col items-center justify-center">
             
                 <div className="flex md-lg:flex-row md-lg:mb-0 mb-4 md-lg:mt-0 mt-6">
 

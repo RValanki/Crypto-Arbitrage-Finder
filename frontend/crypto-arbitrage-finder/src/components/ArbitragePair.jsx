@@ -23,7 +23,7 @@ const ArbitragePair = () => { // Accept id as a prop
                             <div className="flex items-center justify-center text-white font-bold text-xs">
                                 BTC/USD
                             </div>
-                            <div className="flex items-center justify-center bg-[#2B2F38] ml-2 p-2 h-[4vh] rounded-[5px] text-white text-sm">
+                            <div className="flex items-center justify-center bg-[#2B2F38] ml-2 p-2 h-[4vh] max-h-[30px] rounded-[5px] text-white text-sm">
                                 <img src={CoinBase} alt="Logo" className="h-4 ml-1 mr-2" />
                                 Coinbase
                             </div>
@@ -39,7 +39,7 @@ const ArbitragePair = () => { // Accept id as a prop
                             <div className="flex items-center justify-center text-white font-bold text-xs">
                                 BTC/USD
                             </div>
-                            <div className="flex items-center justify-center bg-[#2B2F38] ml-2 p-2 h-[4vh] rounded-[5px] text-white text-sm">
+                            <div className="flex items-center justify-center bg-[#2B2F38] ml-2 p-2 h-[4vh] max-h-[30px] rounded-[5px] text-white text-sm">
                                 <img src={Binance} alt="Logo" className="h-4 ml-1 mr-2" />
                                 Binance
                             </div>

@@ -8,7 +8,7 @@ import ExchangeInfoCard from './ExchangeInfoCard';
 
 const CryptoPriceCard = () => {
     return (
-        <div className="w-full h-full">
+        <div className="w-full h-full max-w-[750px]">
             <div className="flex justify-center text-2xl font-bold text-[#C2C2C2] mb-4">Exchange 1</div>
 
             <div className="w-full h-3/5 bg-[#1F2025] rounded-[5px] p-2 mb-4 md:min-w-[430px] ">

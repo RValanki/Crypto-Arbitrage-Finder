@@ -77,10 +77,3 @@ class BinanceAdapter:
         else:
             print("No data to save.")
 
-# Example usage:
-async def main():
-    all_adapter = BinanceAdapter()
-    await all_adapter.save_all_normalized_data_to_file("all_ticker_data.txt")
-
-# Run the main function
-asyncio.run(main())

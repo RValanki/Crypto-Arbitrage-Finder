@@ -76,10 +76,4 @@ class OKXAdapter:
         else:
             print("No data to save.")
 
-# Example usage:
-async def main():
-    okx_adapter = OKXAdapter()
-    await okx_adapter.save_normalized_data_to_file("okx_normalized_data.txt")
 
-# Run the main function
-asyncio.run(main())

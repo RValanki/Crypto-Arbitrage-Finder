@@ -47,8 +47,28 @@ class BitfinexAdapter:
         """Normalize the fetched data for all tickers from Bitfinex."""
         normalized_data = []
         for raw_data in raw_data_list:
-            normalized_data.append(raw_data)
-        
+            try:
+                normalized_data.append({
+                    'symbol': raw_data[0],  # e.g., "tBTCUSD"
+                    'price': float(raw_data[1]),  # Last price
+                    'high': float(raw_data[7]),  # High price
+                    'low': float(raw_data[8]),   # Low price
+                    'volume': float(raw_data[9]),  # 24h volume
+                })
+            except (IndexError, ValueError) as e:
+                print(f"Error normalizing data for {raw_data}: {e}")
         return normalized_data
+
+    async def save_all_normalized_data_to_file(self, file_path="bitfinex_normalized_data.txt"):
+        """Fetch, normalize, and save data for all tickers to a text file."""
+        raw_data = await self.fetch_all_data()
+        if raw_data:
+            with open(file_path, 'w') as file:
+                for entry in raw_data:
+                    file.write(f"{entry}\n")
+            print(f"Normalized data saved to {file_path}")
+        else:
+            print("No data to save.")
+
 
 

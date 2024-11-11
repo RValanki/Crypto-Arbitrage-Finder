@@ -75,10 +75,4 @@ class KrakenAdapter:
         else:
             print("No data to save.")
 
-# Example usage:
-async def main():
-    kraken_adapter = KrakenAdapter()
-    await kraken_adapter.save_all_normalized_data_to_file("kraken_ticker_data.txt")
 
-# Run the main function
-asyncio.run(main())

@@ -68,9 +68,8 @@ class HuobiAdapter:
             return f"{base}/{quote}"
         return symbol  # Return the original symbol if quote currency not found
 
-    async def save_all_normalized_data_to_file(self, file_path="huobi_normalized_data.txt"):
-        """Fetch, normalize, and save data for all tickers to a text file."""
-        raw_data = await self.fetch_all_data()
+    async def save_all_normalized_data_to_file(self, raw_data, file_path="huobi_normalized_data.txt"):
+        """Normalize the data passed in and save to a text file."""
         if raw_data:
             normalized_data = self.normalize_all_data(raw_data)
             with open(file_path, 'w') as file:
@@ -80,11 +79,4 @@ class HuobiAdapter:
         else:
             print("No data to save.")
 
-# Example usage:
-async def main():
-    huobi_adapter = HuobiAdapter()  # Optionally pass a specific symbol, e.g., symbol="BTCUSDT"
-    await huobi_adapter.save_all_normalized_data_to_file()
 
-# Run the main function
-import asyncio
-asyncio.run(main())
