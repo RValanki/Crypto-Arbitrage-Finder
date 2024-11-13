@@ -67,8 +67,9 @@ async def test_adapter(adapter_class, top_symbols, symbol_normalization_func, fe
                 print(f"{adapter_class.__name__} Normalized Data:", normalized_data)
 
 def find_arbitrage_opportunities(normalized_data, exchange_list):
-    """Find arbitrage opportunities among the data."""
+    """Find arbitrage opportunities among the data without duplicates."""
     arbitrage_opportunities = []
+    seen_opportunities = set()  # To keep track of unique opportunities
 
     # Iterate through each exchange's data in normalized_data
     for exchange_index, exchange_data in enumerate(normalized_data):
@@ -93,34 +94,43 @@ def find_arbitrage_opportunities(normalized_data, exchange_list):
                         # Find the lowest price for buying
                         if price < min_price:
                             min_price = price
-                            buy_exchange = exchange_list[comparison_index]  # Get exchange name from exchange_list
+                            buy_exchange = exchange_list[comparison_index]
 
                         # Find the highest price for selling
                         if price > max_price:
                             max_price = price
-                            sell_exchange = exchange_list[comparison_index]  # Get exchange name from exchange_list
+                            sell_exchange = exchange_list[comparison_index]
 
             # Check if there is an arbitrage opportunity (selling price > buying price)
             if max_price > min_price:
                 try:
                     profit_percentage = ((max_price - min_price) / min_price) * 100
                     profit = max_price - min_price
-                    arbitrage_opportunities.append({
-                        'symbol': current_symbol,
-                        'buyExchange': buy_exchange,
-                        'buyPrice': min_price,
-                        'sellExchange': sell_exchange,
-                        'sellPrice': max_price,
-                        'profitPercentage': profit_percentage,
-                        'profit': profit
-                    })
+
+                    # Create a unique identifier for the opportunity
+                    opportunity_id = (current_symbol, buy_exchange, sell_exchange)
+
+                    # Check if this opportunity has been seen before
+                    if opportunity_id not in seen_opportunities:
+                        arbitrage_opportunities.append({
+                            'symbol': current_symbol,
+                            'buyExchange': buy_exchange,
+                            'buyPrice': min_price,
+                            'sellExchange': sell_exchange,
+                            'sellPrice': max_price,
+                            'profitPercentage': profit_percentage,
+                            'profit': profit
+                        })
+                        # Add to the set of seen opportunities
+                        seen_opportunities.add(opportunity_id)
                 except ZeroDivisionError:
                     # If ZeroDivisionError occurs, skip this iteration
                     continue
 
-    # Sort arbitrage opportunities by profit in descending order
+    # Sort arbitrage opportunities by profit percentage in descending order
     arbitrage_opportunities.sort(key=lambda x: x['profitPercentage'], reverse=True)
     return arbitrage_opportunities
+
 
 
 

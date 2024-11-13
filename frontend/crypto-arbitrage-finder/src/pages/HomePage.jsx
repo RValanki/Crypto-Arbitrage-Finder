@@ -11,7 +11,7 @@
       <div>
         <TopBar /> {/* Add the TopBar component here */}
 
-        <h1 className="w-full h-[10vh] text-white font-bold sm:text-5xl text-4xl md-lg:text-left text-center md-lg:ml-32 ml-0 mt-32">
+        <h1 className="w-full h-[10vh] text-white font-bold text-5xl md-lg:text-left text-center md-lg:ml-32 ml-0 mt-32">
           Crypto Arbitrage Finder
         </h1>
 
