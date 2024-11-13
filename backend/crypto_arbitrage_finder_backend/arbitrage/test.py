@@ -176,7 +176,7 @@ async def main():
     
     # Example code to write the arbitrage opportunities to a file
     arbitrage_opportunities = find_arbitrage_opportunities(arbitrage_data_list, ['Binance', 'Coinbase', 'Kraken', 'KuCoin', 'ByBit', 'Huobi', 'Bitfinex', 'OKX'])
-
+    print(arbitrage_opportunities)
     # Open the file in write mode
     with open('finaloutput.txt', 'w') as file:
         # Iterate over the arbitrage opportunities and write them into the file
