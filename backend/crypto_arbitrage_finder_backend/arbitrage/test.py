@@ -119,7 +119,7 @@ def find_arbitrage_opportunities(normalized_data, exchange_list):
                     continue
 
     # Sort arbitrage opportunities by profit in descending order
-    arbitrage_opportunities.sort(key=lambda x: x['profit'], reverse=True)
+    arbitrage_opportunities.sort(key=lambda x: x['profitPercentage'], reverse=True)
     return arbitrage_opportunities
 
 
