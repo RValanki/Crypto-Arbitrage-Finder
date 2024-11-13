@@ -1,11 +1,17 @@
-import aiohttp  # Ensure aiohttp is installed
+import asyncio
+import aiohttp
+import json  # For formatting JSON data as a string
 
 class HuobiAdapter:
     def __init__(self, symbol=None):
         self.symbol = symbol
         self.api_url = 'https://api.huobi.pro/v1/common/symbols'  # Endpoint for symbol information
         self.ticker_url = 'https://api.huobi.pro/market/tickers'  # Endpoint for ticker data
-        self.quote_currencies = ['BTC', 'ETH', 'USDT', 'BUSD', 'USDC', 'FDUSD', 'USD', 'BNB', 'PAX', 'TUSD', 'XRP', 'NGN', 'TRX', 'RUB', 'TRY', 'EUR', 'ZAR', 'KRW', 'IDRT', 'BIDR', 'AUD', 'DAI', 'BRL', 'RUB', 'BVND', 'GBP', 'BRL', 'UAH', 'COPS', 'XBT', 'CHF', 'CAD', 'JPY', 'USDD']
+        self.quote_currencies = [
+            'BTC', 'ETH', 'USDT', 'BUSD', 'USDC', 'FDUSD', 'USD', 'BNB', 'PAX', 'TUSD', 'XRP',
+            'NGN', 'TRX', 'RUB', 'TRY', 'EUR', 'ZAR', 'KRW', 'IDRT', 'BIDR', 'AUD', 'DAI', 'BRL',
+            'RUB', 'BVND', 'GBP', 'BRL', 'UAH', 'COPS', 'XBT', 'CHF', 'CAD', 'JPY', 'USDD'
+        ]
 
     async def fetch_data(self):
         """Fetch market data for a specific symbol from Huobi asynchronously."""
@@ -48,8 +54,8 @@ class HuobiAdapter:
     def normalize_all_data(self, raw_data):
         """Normalize the fetched data for all tickers from Huobi."""
         normalized_data = []
-        if raw_data and 'data' in raw_data:
-            for data in raw_data['data']:
+        if raw_data:
+            for data in raw_data:
                 normalized_entry = {
                     'symbol': self.format_symbol(data['symbol'].upper()),
                     'price': float(data['close']),
@@ -66,7 +72,7 @@ class HuobiAdapter:
         if quote:
             base = symbol.replace(quote, '')
             return f"{base}/{quote}"
-        return symbol  # Return the original symbol if quote currency not found
+        return symbol
 
     async def save_all_normalized_data_to_file(self, raw_data, file_path="huobi_normalized_data.txt"):
         """Normalize the data passed in and save to a text file."""
@@ -79,4 +85,12 @@ class HuobiAdapter:
         else:
             print("No data to save.")
 
+    async def save_raw_data_to_file(self, raw_data, file_path="huobi_raw_data.txt"):
+        """Save the raw JSON data to a text file."""
+        if raw_data:
+            with open(file_path, 'w') as file:
+                file.write(json.dumps(raw_data, indent=4))  # Format JSON data with indentation
+            print(f"Raw data saved to {file_path}")
+        else:
+            print("No raw data to save.")
 

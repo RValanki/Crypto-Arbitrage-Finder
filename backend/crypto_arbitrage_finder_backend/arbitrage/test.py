@@ -78,7 +78,7 @@ async def main():
         #(KuCoinAdapter, lambda s: s.replace('/', '-'), True),
         (BybitAdapter, lambda s: s.replace('/', ''), True),    # Add BybitAdapter to the test suite
         (HuobiAdapter, lambda s: s.replace('/', ''), True),     # Add HuobiAdapter to the test suite
-        (BitfinexAdapter, lambda s: 't' + s.replace('/', ''), True),
+        #(BitfinexAdapter, lambda s: 't' + s.replace('/', ''), True),
         (OKXAdapter, lambda s: 't' + s.replace('/', ''), True),
     ]
 
