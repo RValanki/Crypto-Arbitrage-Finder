@@ -29,7 +29,7 @@ const TradeInfoPage = () => {
             </div>
 
             <div className="mb-16">
-              <TradeLegComponent />
+              <TradeLegComponent isBuy={false}/>
             </div>
 
             

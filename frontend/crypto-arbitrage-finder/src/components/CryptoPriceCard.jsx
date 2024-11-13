@@ -45,7 +45,7 @@ const CryptoPriceCard = () => {
                     <div className="flex justify-center w-full mb-2">
                         <div className="flex space-x-4 w-full">
                             <div class="bg-[#202229] rounded-[5px] w-1/4 flex flex-col justify-center items-center">
-                                <div class="text-[#B4B4B4] text-sm mt-2">Volume</div>
+                                <div class="text-[#B4B4B4] text-sm mt-2">Market Cap</div>
                                 <div class="text-white font-semibold mb-2">$72.78B</div>
                             </div>
 
@@ -55,12 +55,12 @@ const CryptoPriceCard = () => {
                             </div>
 
                             <div class="bg-[#202229] rounded-[5px] w-1/4 flex flex-col justify-center items-center">
-                                <div class="text-[#B4B4B4] text-sm mt-2">Volume</div>
+                                <div class="text-[#B4B4B4] text-sm mt-2">High</div>
                                 <div class="text-white font-semibold mb-2">$72.78B</div>
                             </div>
 
                             <div class="bg-[#202229] rounded-[5px] w-1/4 flex flex-col justify-center items-center">
-                                <div class="text-[#B4B4B4] text-sm mt-2">Volume</div>
+                                <div class="text-[#B4B4B4] text-sm mt-2">Low</div>
                                 <div class="text-white font-semibold mb-2">$72.78B</div>
                             </div>
 
