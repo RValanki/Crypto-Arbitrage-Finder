@@ -8,7 +8,7 @@ const TradeLegComponent = ({ isBuy=true }) => {
             <div className="text-2xl font-bold text-[#C2C2C2] mb-4">
                 {isBuy ? "Buy" : "Sell"} Trade Leg
             </div>
-            <div className="w-full bg-[#2B2F38] md-lg:min-h-[120px] min-h-[150px] rounded-[5px] flex md-lg:flex-row flex-col items-center md:justify-center">
+            <div className="w-full bg-[#2B2F38] md-lg:min-h-[120px] min-h-[150px] rounded-[5px] flex md-lg:flex-row flex-col items-center lg:justify-center">
             
                 <div className="flex md-lg:flex-row md-lg:mb-0 mb-4 md-lg:mt-0 mt-6">
                     <div className="flex flex-row items-center ml-8 font-bold">
