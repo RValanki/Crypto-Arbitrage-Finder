@@ -4,9 +4,10 @@ import React from 'react';
 import Bitcoin from "../assets/Bitcoin.png";
 import Coinbase from "../assets/Coinbase.png";
 import GreenArrowUp from "../assets/GreenArrowUp.png";
+import RedArrowDown from "../assets/RedArrowDown.png"
 import ExchangeInfoCard from './ExchangeInfoCard';
 
-const CryptoPriceCard = () => {
+const CryptoPriceCard = ({isBuyExchange=true}) => {
     return (
         <div className="w-full h-full max-w-[750px]">
             <div className="flex justify-center text-2xl font-bold text-[#C2C2C2] mb-4">Exchange 1</div>
@@ -26,7 +27,7 @@ const CryptoPriceCard = () => {
 
                         {/* Center Item */}
                         <div className="flex items-center justify-center h-full mt-4">
-                            <img src={GreenArrowUp} alt="Arrow Up" className="h-8 mr-2" />
+                            <img src={isBuyExchange ? RedArrowDown : GreenArrowUp} alt="Arrow Up" className="h-8 mr-2" />
                             <div className="text-white font-bold text-3xl mr-[1vw]">
                                 $68,203.69
                             </div>

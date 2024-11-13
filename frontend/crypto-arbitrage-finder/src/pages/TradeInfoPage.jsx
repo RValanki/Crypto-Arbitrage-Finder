@@ -17,7 +17,7 @@ const TradeInfoPage = () => {
           </div>
 
           <div className="flex justify-center w-full md-lg:w-1/2 h-[500px] md-lg:px-8 sm:px-24 px-4 md-lg:mr-48 mr-0"> {/* Reduced padding */}
-            <CryptoPriceCard />
+            <CryptoPriceCard isBuyExchange={false}/>
           </div>
         </div>
 
