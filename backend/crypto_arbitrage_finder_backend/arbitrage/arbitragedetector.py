@@ -96,7 +96,8 @@ class ArbitrageDetector:
                         profit = max_price - min_price
                         opportunity_id = (current_symbol, buy_exchange, sell_exchange)
 
-                        if opportunity_id not in seen_opportunities:
+                        # Only add the opportunity if profitPercentage <= 200
+                        if profit_percentage <= 200 and opportunity_id not in seen_opportunities:
                             arbitrage_opportunities.append({
                                 'symbol': current_symbol,
                                 'buyExchange': buy_exchange,
@@ -118,6 +119,7 @@ class ArbitrageDetector:
 
         arbitrage_opportunities.sort(key=lambda x: x['profitPercentage'], reverse=True)
         return arbitrage_opportunities
+
 
     async def detect_arbitrage(self):
         """Detect arbitrage opportunities and save to a file."""
