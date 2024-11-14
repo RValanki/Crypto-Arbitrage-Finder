@@ -3,6 +3,7 @@ import asyncio
 
 class KrakenAdapter:
     def __init__(self):
+        self.exchangeName = "Kraken"
         self.api_url = 'https://api.kraken.com/0/public/Ticker'  # Endpoint for ticker information
         # Known quote currencies
         self.quote_currencies = ['BTC', 'ETH', 'USDT', 'BUSD', 'USDC', 'FDUSD', 'USD', 'BNB', 'PAX', 'TUSD', 'XRP', 'NGN', 'TRX', 'RUB', 'TRY', 'EUR', 'ZAR', 'KRW', 'IDRT', 'BIDR', 'AUD', 'DAI', 'BRL', 'RUB', 'BVND', 'GBP', 'BRL', 'UAH', 'COPS', 'XBT', 'CHF', 'CAD', 'JPY']
@@ -62,17 +63,4 @@ class KrakenAdapter:
             base = symbol.replace(quote, '')
             return f"{base}/{quote}"
         return symbol  # Return the original symbol if quote currency not found
-
-    async def save_all_normalized_data_to_file(self, file_path):
-        """Fetch, normalize, and save all ticker data to a text file."""
-        raw_data = await self.fetch_all_data()
-        if raw_data:
-            normalized_data = self.normalize_all_data(raw_data)
-            with open(file_path, 'w') as file:
-                for data in normalized_data:
-                    file.write(str(data) + "\n")
-            print(f"All normalized data saved to {file_path}")
-        else:
-            print("No data to save.")
-
 

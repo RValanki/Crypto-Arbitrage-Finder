@@ -3,6 +3,7 @@ import json  # For saving JSON data to file
 
 class KuCoinAdapter:
     def __init__(self, symbol=None):
+        self.exchangeName = "KuCoin"
         self.symbol = symbol
         self.api_url = 'https://api.kucoin.com/api/v1/market/allTickers'  # Endpoint for all tickers data
         self.quote_currencies = ['BTC', 'ETH', 'USDT', 'BUSD', 'USDC', 'FDUSD', 'USD', 'BNB', 'PAX', 'TUSD', 'XRP', 'NGN', 
@@ -70,12 +71,3 @@ class KuCoinAdapter:
                 }
                 normalized_data.append(normalized_entry)
         return normalized_data
-
-    async def save_raw_data_to_file(self, raw_data, file_path="kucoin_raw_data.txt"):
-        """Save the raw JSON data to a text file."""
-        if raw_data:
-            with open(file_path, 'w') as file:
-                file.write(json.dumps(raw_data, indent=4))  # Format JSON data with indentation
-            print(f"Raw data saved to {file_path}")
-        else:
-            print("No raw data to save.")

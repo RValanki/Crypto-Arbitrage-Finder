@@ -3,6 +3,7 @@ import asyncio
 
 class BitfinexAdapter:
     def __init__(self):
+        self.exchangeName = "Bitfinex"
         self.api_url = 'https://api-pub.bitfinex.com/v2/tickers?symbols=ALL'  # Hardcoded endpoint for all ticker data
         self.quote_currencies = ['BTC', 'ETH', 'USDT', 'BUSD', 'USDC', 'FDUSD', 'USD', 'BNB', 'PAX', 'TUSD', 'XRP', 'NGN', 'TRX', 'RUB', 'TRY', 'EUR', 'ZAR', 'KRW', 'IDRT', 'BIDR', 'AUD', 'DAI', 'BRL', 'RUB', 'BVND', 'GBP', 'BRL', 'UAH', 'COPS', 'XBT', 'CHF', 'CAD', 'JPY', 'USD', 'USDT', 'BTC', 'ETH', 'EUR', 'JPY', 'GBP', 'CHF', 'XRP', 'TRX', 'BCH', 'LTC', 'UST']
 
@@ -88,13 +89,3 @@ class BitfinexAdapter:
                 return f"{base}/{quote}"
         return symbol  # Return the original symbol if quote currency not found
 
-    async def save_all_normalized_data_to_file(self, file_path="bitfinex_normalized_data.txt"):
-        """Fetch, normalize, and save data for all tickers to a text file."""
-        raw_data = await self.fetch_all_data()
-        if raw_data:
-            with open(file_path, 'w') as file:
-                for entry in raw_data:
-                    file.write(f"{entry}\n")
-            print(f"Normalized data saved to {file_path}")
-        else:
-            print("No data to save.")

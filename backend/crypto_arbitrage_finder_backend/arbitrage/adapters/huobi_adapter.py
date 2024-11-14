@@ -4,6 +4,7 @@ import json  # For formatting JSON data as a string
 
 class HuobiAdapter:
     def __init__(self, symbol=None):
+        self.exchangeName = "Huobi"
         self.symbol = symbol
         self.api_url = 'https://api.huobi.pro/v1/common/symbols'  # Endpoint for symbol information
         self.ticker_url = 'https://api.huobi.pro/market/tickers'  # Endpoint for ticker data
@@ -74,23 +75,5 @@ class HuobiAdapter:
             return f"{base}/{quote}"
         return symbol
 
-    async def save_all_normalized_data_to_file(self, raw_data, file_path="huobi_normalized_data.txt"):
-        """Normalize the data passed in and save to a text file."""
-        if raw_data:
-            normalized_data = self.normalize_all_data(raw_data)
-            with open(file_path, 'w') as file:
-                for entry in normalized_data:
-                    file.write(f"{entry}\n")
-            print(f"Normalized data saved to {file_path}")
-        else:
-            print("No data to save.")
 
-    async def save_raw_data_to_file(self, raw_data, file_path="huobi_raw_data.txt"):
-        """Save the raw JSON data to a text file."""
-        if raw_data:
-            with open(file_path, 'w') as file:
-                file.write(json.dumps(raw_data, indent=4))  # Format JSON data with indentation
-            print(f"Raw data saved to {file_path}")
-        else:
-            print("No raw data to save.")
-
+    

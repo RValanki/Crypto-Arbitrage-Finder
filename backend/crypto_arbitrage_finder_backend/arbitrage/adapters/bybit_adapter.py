@@ -2,6 +2,7 @@ import aiohttp  # Ensure aiohttp is installed
 
 class BybitAdapter:
     def __init__(self, symbol=None, category="spot"):
+        self.exchangeName = "Bybit"
         self.symbol = symbol
         self.category = category
         self.api_url = 'https://api.bybit.com/v5/market/tickers'  # Bybit endpoint for ticker data
@@ -66,11 +67,4 @@ class BybitAdapter:
             base = symbol.replace(quote, '')
             return f"{base}/{quote}"
         return symbol  # Return the original symbol if quote currency not found
-
-    def save_normalized_data_to_file(self, normalized_data, file_path="bybit_normalized_data.txt"):
-        """Save normalized data to a text file."""
-        with open(file_path, 'w') as file:
-            for entry in normalized_data:
-                file.write(f"{entry}\n")
-        print(f"Normalized data saved to {file_path}")
 

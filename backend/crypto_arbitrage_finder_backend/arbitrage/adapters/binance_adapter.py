@@ -2,7 +2,10 @@ import aiohttp  # Ensure aiohttp is installed
 import asyncio
 
 class BinanceAdapter:
+    exchangeName = "Binance"
+
     def __init__(self, symbol=None):
+        self.exchangeName = "Binance"
         self.symbol = symbol
         self.api_url = 'https://api.binance.com/api/v3/ticker/24hr'  # Endpoint for 24hr ticker price change statistics
         self.quote_currencies = ['BTC', 'ETH', 'USDT', 'BUSD', 'USDC', 'FDUSD', 'USD', 'BNB', 'PAX', 'TUSD', 'XRP', 'NGN', 'TRX', 'RUB', 'TRY', 'EUR', 'ZAR', 'KRW', 'IDRT', 'BIDR', 'AUD', 'DAI', 'BRL', 'RUB', 'BVND', 'GBP', 'BRL', 'UAH', 'COPS', 'XBT', 'CHF', 'CAD', 'JPY']
@@ -65,15 +68,5 @@ class BinanceAdapter:
             return f"{base}/{quote}"
         return symbol  # Return the original symbol if quote currency not found
 
-    async def save_all_normalized_data_to_file(self, file_path):
-        """Fetch, normalize, and save data for all tickers to a text file."""
-        raw_data_list = await self.fetch_all_data()
-        normalized_data_list = self.normalize_all_data(raw_data_list)
-        if normalized_data_list:
-            with open(file_path, 'w') as file:
-                for data in normalized_data_list:
-                    file.write(str(data) + "\n")
-            print(f"All normalized data saved to {file_path}")
-        else:
-            print("No data to save.")
+
 
