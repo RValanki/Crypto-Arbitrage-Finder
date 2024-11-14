@@ -55,21 +55,35 @@ def find_arbitrage_opportunities(normalized_data, exchange_list):
             max_price = 0
             buy_exchange = ""
             sell_exchange = ""
+            buy_volume = buy_high = buy_low = None
+            sell_volume = sell_high = sell_low = None
 
             for comparison_index, exchange_data_comparison in enumerate(normalized_data):
                 for coin2 in exchange_data_comparison:
                     if coin2['symbol'] == current_symbol:
                         price = coin2.get('price')
+                        volume = coin2.get('volume')
+                        high = coin2.get('high')
+                        low = coin2.get('low')
+                        
                         if price is None:
                             continue
 
+                        # Update buy information
                         if price < min_price:
                             min_price = price
                             buy_exchange = exchange_list[comparison_index]
+                            buy_volume = volume
+                            buy_high = high
+                            buy_low = low
 
+                        # Update sell information
                         if price > max_price:
                             max_price = price
                             sell_exchange = exchange_list[comparison_index]
+                            sell_volume = volume
+                            sell_high = high
+                            sell_low = low
 
             if max_price > min_price:
                 try:
@@ -82,8 +96,14 @@ def find_arbitrage_opportunities(normalized_data, exchange_list):
                             'symbol': current_symbol,
                             'buyExchange': buy_exchange,
                             'buyPrice': min_price,
+                            'buyVolume': buy_volume,
+                            'buyHigh': buy_high,
+                            'buyLow': buy_low,
                             'sellExchange': sell_exchange,
                             'sellPrice': max_price,
+                            'sellVolume': sell_volume,
+                            'sellHigh': sell_high,
+                            'sellLow': sell_low,
                             'profitPercentage': profit_percentage,
                             'profit': profit
                         })
@@ -93,6 +113,7 @@ def find_arbitrage_opportunities(normalized_data, exchange_list):
 
     arbitrage_opportunities.sort(key=lambda x: x['profitPercentage'], reverse=True)
     return arbitrage_opportunities
+
 
 async def main():
     adapters_info = [
@@ -106,22 +127,31 @@ async def main():
         OKXAdapter,
     ]
 
+    # Fetch data from adapters
     arbitrage_data_list = await test_adapter(adapters_info)
     print(arbitrage_data_list)
     
+    # Find arbitrage opportunities
     arbitrage_opportunities = find_arbitrage_opportunities(
         arbitrage_data_list,
         ['Binance', 'Coinbase', 'Kraken', 'KuCoin', 'ByBit', 'Huobi', 'Bitfinex', 'OKX']
     )
     print(arbitrage_opportunities)
 
+    # Write arbitrage opportunities to a file
     with open('finaloutput.txt', 'w') as file:
         for opportunity in arbitrage_opportunities:
             opportunity_str = (f"Symbol: {opportunity['symbol']}\n"
                                f"Buy Exchange: {opportunity['buyExchange']}\n"
                                f"Buy Price: {opportunity['buyPrice']}\n"
+                               f"Buy Volume: {opportunity['buyVolume']}\n"
+                               f"Buy High: {opportunity['buyHigh']}\n"
+                               f"Buy Low: {opportunity['buyLow']}\n"
                                f"Sell Exchange: {opportunity['sellExchange']}\n"
                                f"Sell Price: {opportunity['sellPrice']}\n"
+                               f"Sell Volume: {opportunity['sellVolume']}\n"
+                               f"Sell High: {opportunity['sellHigh']}\n"
+                               f"Sell Low: {opportunity['sellLow']}\n"
                                f"Profit Percentage: {opportunity['profitPercentage']:.2f}%\n"
                                f"Profit: {opportunity['profit']}\n")
             file.write(opportunity_str + "\n" + ("=" * 50) + "\n")
