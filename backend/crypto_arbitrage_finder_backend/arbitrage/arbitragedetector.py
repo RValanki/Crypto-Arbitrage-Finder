@@ -10,10 +10,15 @@ from adapters.huobi_adapter import HuobiAdapter
 from adapters.okx_adapter import OKXAdapter
 
 class ArbitrageDetector:
-    def __init__(self, adapters_info, exchange_names):
+    def __init__(self, adapters_info):
         self.adapters_info = adapters_info
-        self.exchange_names = exchange_names
+        self.exchange_names = []
+        self.getExchangeNames()
 
+    def getExchangeNames(self):
+        for adapter in self.adapters_info:
+            self.exchange_names.append(adapter().exchangeName)
+    
     async def fetch_adapter_data(self, adapter_class):
         """Fetch data for a single adapter and normalize it."""
         adapter = adapter_class()
@@ -157,11 +162,8 @@ async def main():
         OKXAdapter,
     ]
 
-    exchange_names = [
-        'Binance', 'Coinbase', 'Kraken', 'KuCoin',
-        'ByBit', 'Huobi', 'Bitfinex', 'OKX'
-    ]
-    detector = ArbitrageDetector(adapters_info, exchange_names)
+    
+    detector = ArbitrageDetector(adapters_info)
     await detector.detect_arbitrage()
 
 if __name__ == "__main__":
