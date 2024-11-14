@@ -24,7 +24,7 @@ class OKXAdapter:
                 if response.status == 200:
                     data = await response.json()
                     if data.get('data'):
-                        self.save_raw_data_to_file(data['data'])  # Save raw data to a text file
+                        #self.save_raw_data_to_file(data['data'])  # Save raw data to a text file
                         return data['data']  # Return the raw data without normalization
                 else:
                     print(f"Error fetching all ticker data from OKX: {response.status}")
