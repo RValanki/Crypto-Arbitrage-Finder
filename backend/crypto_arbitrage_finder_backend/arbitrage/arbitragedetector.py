@@ -123,11 +123,9 @@ class ArbitrageDetector:
         """Detect arbitrage opportunities and save to a file."""
         # Fetch data from adapters
         arbitrage_data_list = await self.fetch_all_data()
-        print(arbitrage_data_list)
         
         # Find arbitrage opportunities
         arbitrage_opportunities = self.find_arbitrage_opportunities(arbitrage_data_list)
-        print(arbitrage_opportunities)
 
         # Write arbitrage opportunities to a file
         with open('finaloutput.txt', 'w') as file:
@@ -148,6 +146,7 @@ class ArbitrageDetector:
                 file.write(opportunity_str + "\n" + ("=" * 50) + "\n")
 
         print("Arbitrage opportunities have been written to finaloutput.txt")
+        return arbitrage_opportunities
 
 
 async def main():
@@ -164,7 +163,8 @@ async def main():
 
     
     detector = ArbitrageDetector(adapters_info)
-    await detector.detect_arbitrage()
+    result = await detector.detect_arbitrage()
+    print(result)
 
 if __name__ == "__main__":
     asyncio.run(main())
