@@ -1,60 +1,44 @@
 import requests
-import time
 
-# Base URLs for CoinGecko API
-top_coins_url = "https://api.coingecko.com/api/v3/coins/markets"
-tickers_url_template = "https://api.coingecko.com/api/v3/coins/{id}/tickers"
-
-# Parameters to get top 10 coins by market cap in USD
-params = {
-    "vs_currency": "usd",
-    "order": "market_cap_desc",
-    "per_page": 10,
-    "page": 1,
-}
-
-# Function to make API calls with exponential backoff
-def make_request(url, retries=5, backoff_factor=2, params=None):
-    for attempt in range(retries):
-        response = requests.get(url, params=params)
-        
-        # If the request is successful, return the response
-        if response.status_code == 200:
-            return response.json()
-        
-        # If rate-limited, wait before retrying
-        elif response.status_code == 429:
-            wait_time = backoff_factor ** attempt  # Exponential backoff
-            print(f"Rate limit exceeded. Retrying in {wait_time} seconds...")
-            time.sleep(wait_time)
-        else:
-            print(f"Request failed with status code {response.status_code}. Retrying...")
-            time.sleep(1)  # Small delay before retrying
+# Function to get coin data from CoinGecko API
+def get_coin_data(coin_name):
+    url = f"https://api.coingecko.com/api/v3/coins/{coin_name.lower()}"
     
-    # If all retries fail, raise an exception
-    raise Exception(f"Failed to get data after {retries} retries.")
+    response = requests.get(url)
+    
+    if response.status_code != 200:
+        print(f"Error fetching the data for {coin_name}, Status Code: {response.status_code}")
+        return {"image_url": "Not available", "market_cap": "Not available"}
+    
+    coin_data = response.json()
+    
+    # Extract the coin image
+    image_url = coin_data['image']['large'] if 'image' in coin_data else "Image not found"
+    
+    # Extract the market cap
+    market_cap = coin_data['market_data']['market_cap']['usd'] if 'market_data' in coin_data else "Market cap not found"
+    
+    return {
+        "image_url": image_url,
+        "market_cap": market_cap
+    }
 
-# Step 1: Fetch the top 10 coins
-try:
-    response = make_request(top_coins_url, params=params)
-    top_coins = response
+# Hardcoded top 20 cryptocurrencies
+top_20_coins = [
+    "bitcoin", "ethereum", "tether", "binancecoin", "usd-coin", "ripple", "dogecoin", "litecoin", "chainlink",
+    "uniswap", "binance-usd", "polkadot", "stellar", "vechain", "wrapped-bitcoin", "cardano", "monero", "ethereum-classic", 
+    "solana", "tron"
+]
 
-    # Step 2: Fetch tickers for each top coin with a delay
-    for coin in top_coins:
-        coin_id = coin["id"]
-        tickers_url = tickers_url_template.format(id=coin_id)
-        
-        try:
-            tickers_data = make_request(tickers_url, params=None)  # No need to pass params here
-            print(f"\nTickers for {coin['name']} (ID: {coin_id}):")
-            for ticker in tickers_data['tickers']:
-                print(f"Market: {ticker['market']['name']}, Pair: {ticker['base']}/{ticker['target']}, Price: {ticker['last']} {ticker['target']}")
-        
-        except Exception as e:
-            print(f"An error occurred for coin {coin_id}: {e}")
-        
-        # Delay to avoid exceeding rate limit
-        time.sleep(3)  # 3-second delay per request
-
-except Exception as e:
-    print(f"An error occurred: {e}")
+# Loop through the top 20 coins and fetch their data
+for coin in top_20_coins:
+    coin_data = get_coin_data(coin)
+    
+    if coin_data:
+        print(f"{coin.capitalize()}:")
+        print(f"  Image URL: {coin_data['image_url']}")
+        print(f"  Market Cap: ${coin_data['market_cap']}")
+        print("=" * 50)
+    else:
+        print(f"Failed to retrieve data for {coin.capitalize()}.")
+        print("=" * 50)

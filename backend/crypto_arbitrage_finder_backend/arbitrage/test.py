@@ -188,7 +188,7 @@ async def main():
                             f"Sell Exchange: {opportunity['sellExchange']}\n"
                             f"Sell Price: {opportunity['sellPrice']}\n"
                             f"Profit Percentage: {opportunity['profitPercentage']:.2f}%\n"
-                            f"Profit: {opportunity['profit']:.2f}\n")
+                            f"Profit: {opportunity['profit']}\n")
             
             # Write the formatted string to the file
             file.write(opportunity_str + "\n{'='*50}\n")  # Separate each opportunity with a line of '='
