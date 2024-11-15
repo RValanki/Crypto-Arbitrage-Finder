@@ -4,6 +4,8 @@ import asyncio
 class KrakenAdapter:
     def __init__(self):
         self.exchangeName = "Kraken"
+        self.makerFee = 0.0016
+        self.takerFee = 0.0026
         self.api_url = 'https://api.kraken.com/0/public/Ticker'  # Endpoint for ticker information
         # Known quote currencies
         self.quote_currencies = ['BTC', 'ETH', 'USDT', 'BUSD', 'USDC', 'FDUSD', 'USD', 'BNB', 'PAX', 'TUSD', 'XRP', 'NGN', 'TRX', 'RUB', 'TRY', 'EUR', 'ZAR', 'KRW', 'IDRT', 'BIDR', 'AUD', 'DAI', 'BRL', 'RUB', 'BVND', 'GBP', 'BRL', 'UAH', 'COPS', 'XBT', 'CHF', 'CAD', 'JPY']

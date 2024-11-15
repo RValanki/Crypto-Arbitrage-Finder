@@ -4,6 +4,8 @@ import json  # For saving JSON data to file
 class KuCoinAdapter:
     def __init__(self, symbol=None):
         self.exchangeName = "KuCoin"
+        self.makerFee = 0.001
+        self.takerFee = 0.001
         self.symbol = symbol
         self.api_url = 'https://api.kucoin.com/api/v1/market/allTickers'  # Endpoint for all tickers data
         self.quote_currencies = ['BTC', 'ETH', 'USDT', 'BUSD', 'USDC', 'FDUSD', 'USD', 'BNB', 'PAX', 'TUSD', 'XRP', 'NGN', 

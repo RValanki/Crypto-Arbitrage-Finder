@@ -3,6 +3,8 @@ import aiohttp  # Ensure aiohttp is installed
 class CoinbaseAdapter:
     def __init__(self, symbol=None):
         self.exchangeName = "Coinbase"
+        self.makerFee = 0.004
+        self.takerFee = 0.006
         self.symbol = symbol
         self.api_url = 'https://api.coinbase.com/v2/prices'
 

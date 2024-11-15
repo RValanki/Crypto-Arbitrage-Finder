@@ -6,6 +6,8 @@ class ExchangeAdapter(ABC):
 
     def __init__(self):
         self.exchangeName = ""
+        self.makerFee = 0
+        self.takerFee = 0
 
     @abstractmethod
     def fetch_data(self):

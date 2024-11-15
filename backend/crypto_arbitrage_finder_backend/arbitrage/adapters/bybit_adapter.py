@@ -3,6 +3,8 @@ import aiohttp  # Ensure aiohttp is installed
 class BybitAdapter:
     def __init__(self, symbol=None, category="spot"):
         self.exchangeName = "Bybit"
+        self.makerFee = 0.001
+        self.takerFee = 0.001
         self.symbol = symbol
         self.category = category
         self.api_url = 'https://api.bybit.com/v5/market/tickers'  # Bybit endpoint for ticker data

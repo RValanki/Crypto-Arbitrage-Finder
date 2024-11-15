@@ -5,6 +5,8 @@ import json  # For formatting JSON data as a string
 class HuobiAdapter:
     def __init__(self, symbol=None):
         self.exchangeName = "Huobi"
+        self.makerFee = 0.002
+        self.takerFee = 0.002
         self.symbol = symbol
         self.api_url = 'https://api.huobi.pro/v1/common/symbols'  # Endpoint for symbol information
         self.ticker_url = 'https://api.huobi.pro/market/tickers'  # Endpoint for ticker data

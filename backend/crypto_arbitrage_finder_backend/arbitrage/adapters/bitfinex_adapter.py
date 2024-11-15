@@ -4,6 +4,8 @@ import asyncio
 class BitfinexAdapter:
     def __init__(self):
         self.exchangeName = "Bitfinex"
+        self.makerFee = 0.001
+        self.takerFee = 0.002
         self.api_url = 'https://api-pub.bitfinex.com/v2/tickers?symbols=ALL'  # Hardcoded endpoint for all ticker data
         self.quote_currencies = ['BTC', 'ETH', 'USDT', 'BUSD', 'USDC', 'FDUSD', 'USD', 'BNB', 'PAX', 'TUSD', 'XRP', 'NGN', 'TRX', 'RUB', 'TRY', 'EUR', 'ZAR', 'KRW', 'IDRT', 'BIDR', 'AUD', 'DAI', 'BRL', 'RUB', 'BVND', 'GBP', 'BRL', 'UAH', 'COPS', 'XBT', 'CHF', 'CAD', 'JPY', 'USD', 'USDT', 'BTC', 'ETH', 'EUR', 'JPY', 'GBP', 'CHF', 'XRP', 'TRX', 'BCH', 'LTC', 'UST']
 

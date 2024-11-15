@@ -4,6 +4,8 @@ import asyncio
 class OKXAdapter:
     def __init__(self):
         self.exchangeName = "OKX"
+        self.makerFee = 0.001
+        self.takerFee = 0.002
         self.api_url = 'https://www.okx.com/api/v5/market/tickers?instType=SPOT'  # Directly use the provided URL
 
     async def fetch_data(self):

@@ -64,6 +64,7 @@ class ArbitrageDetector:
                 sell_exchange = ""
                 buy_volume = buy_high = buy_low = None
                 sell_volume = sell_high = sell_low = None
+                buy_fee = sell_fee = 0
 
                 for comparison_index, exchange_data_comparison in enumerate(normalized_data):
                     for coin2 in exchange_data_comparison:
@@ -72,16 +73,17 @@ class ArbitrageDetector:
                             volume = coin2.get('volume')
                             high = coin2.get('high')
                             low = coin2.get('low')
-                            
                             if price is None:
                                 continue
 
+                            # Adjust the price based on fees
                             if price < min_price:
                                 min_price = price
                                 buy_exchange = self.exchange_names[comparison_index]
                                 buy_volume = volume
                                 buy_high = high
                                 buy_low = low
+                                buy_fee = self.adapters_info[comparison_index]().takerFee
 
                             if price > max_price:
                                 max_price = price
@@ -89,15 +91,26 @@ class ArbitrageDetector:
                                 sell_volume = volume
                                 sell_high = high
                                 sell_low = low
+                                sell_fee = self.adapters_info[comparison_index]().takerFee
 
                 if max_price > min_price:
                     try:
-                        profit_percentage = ((max_price - min_price) / min_price) * 100
+                        # Calculate profit before fees
                         profit = max_price - min_price
+
+                        # Apply fees for both buy and sell
+                        profit_after_fees = profit - (min_price * buy_fee) - (max_price * sell_fee)
+
+                        # Calculate profit percentage before fees
+                        profit_percentage = (profit / min_price) * 100
+
+                        # Calculate profit percentage after fees
+                        profit_percentage_after_fees = ((profit_after_fees) / min_price) * 100
+
                         opportunity_id = (current_symbol, buy_exchange, sell_exchange)
 
-                        # Only add the opportunity if profitPercentage <= 200
-                        if profit_percentage <= 200 and opportunity_id not in seen_opportunities:
+                        # Only add the opportunity if profitPercentageAfterFees <= 200
+                        if profit_percentage_after_fees <= 200 and opportunity_id not in seen_opportunities:
                             arbitrage_opportunities.append({
                                 'symbol': current_symbol,
                                 'buyExchange': buy_exchange,
@@ -110,15 +123,19 @@ class ArbitrageDetector:
                                 'sellVolume': sell_volume,
                                 'sellHigh': sell_high,
                                 'sellLow': sell_low,
-                                'profitPercentage': profit_percentage,
-                                'profit': profit
+                                'profit': profit,
+                                'profitPercentage': profit_percentage,  # Keep the original profit percentage
+                                'profitAfterFees': profit_after_fees,
+                                'profitPercentageAfterFees': profit_percentage_after_fees
                             })
                             seen_opportunities.add(opportunity_id)
                     except ZeroDivisionError:
                         continue
 
-        arbitrage_opportunities.sort(key=lambda x: x['profitPercentage'], reverse=True)
+        arbitrage_opportunities.sort(key=lambda x: x['profitPercentageAfterFees'], reverse=True)
         return arbitrage_opportunities
+
+
 
 
     async def detect_arbitrage(self):
@@ -133,18 +150,20 @@ class ArbitrageDetector:
         with open('finaloutput.txt', 'w') as file:
             for opportunity in arbitrage_opportunities:
                 opportunity_str = (f"Symbol: {opportunity['symbol']}\n"
-                                   f"Buy Exchange: {opportunity['buyExchange']}\n"
-                                   f"Buy Price: {opportunity['buyPrice']}\n"
-                                   f"Buy Volume: {opportunity['buyVolume']}\n"
-                                   f"Buy High: {opportunity['buyHigh']}\n"
-                                   f"Buy Low: {opportunity['buyLow']}\n"
-                                   f"Sell Exchange: {opportunity['sellExchange']}\n"
-                                   f"Sell Price: {opportunity['sellPrice']}\n"
-                                   f"Sell Volume: {opportunity['sellVolume']}\n"
-                                   f"Sell High: {opportunity['sellHigh']}\n"
-                                   f"Sell Low: {opportunity['sellLow']}\n"
-                                   f"Profit Percentage: {opportunity['profitPercentage']:.2f}%\n"
-                                   f"Profit: {opportunity['profit']}\n")
+                               f"Buy Exchange: {opportunity['buyExchange']}\n"
+                               f"Buy Price: {opportunity['buyPrice']}\n"
+                               f"Buy Volume: {opportunity['buyVolume']}\n"
+                               f"Buy High: {opportunity['buyHigh']}\n"
+                               f"Buy Low: {opportunity['buyLow']}\n"
+                               f"Sell Exchange: {opportunity['sellExchange']}\n"
+                               f"Sell Price: {opportunity['sellPrice']}\n"
+                               f"Sell Volume: {opportunity['sellVolume']}\n"
+                               f"Sell High: {opportunity['sellHigh']}\n"
+                               f"Sell Low: {opportunity['sellLow']}\n"
+                               f"Profit: {opportunity['profit']}\n"
+                               f"Profit Percentage: {opportunity['profitPercentage']:.2f}%\n"
+                               f"Profit After Fees: {opportunity['profitAfterFees']}\n"
+                               f"Profit Percentage After Fees: {opportunity['profitPercentageAfterFees']:.2f}%")
                 file.write(opportunity_str + "\n" + ("=" * 50) + "\n")
 
         print("Arbitrage opportunities have been written to finaloutput.txt")
