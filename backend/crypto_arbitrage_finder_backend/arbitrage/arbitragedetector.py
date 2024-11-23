@@ -151,9 +151,10 @@ class ArbitrageDetector:
         # Find arbitrage opportunities
         arbitrage_opportunities = self.find_arbitrage_opportunities(arbitrage_data_list)
 
+        result = await self.update_results_with_icons(arbitrage_opportunities)
         # Write arbitrage opportunities to a file
         with open('finaloutput.txt', 'w') as file:
-            for opportunity in arbitrage_opportunities:
+            for opportunity in result:
                 opportunity_str = (f"Symbol: {opportunity['symbol']}\n"
                                f"Buy Exchange: {opportunity['buyExchange']}\n"
                                f"Buy Price: {opportunity['buyPrice']}\n"
@@ -168,11 +169,13 @@ class ArbitrageDetector:
                                f"Profit: {opportunity['profit']}\n"
                                f"Profit Percentage: {opportunity['profitPercentage']:.2f}%\n"
                                f"Profit After Fees: {opportunity['profitAfterFees']}\n"
-                               f"Profit Percentage After Fees: {opportunity['profitPercentageAfterFees']:.2f}%")
+                               f"Profit Percentage After Fees: {opportunity['profitPercentageAfterFees']:.2f}%\n"
+                               f"Icon: {opportunity['icon']}\n"  
+                               )
                 file.write(opportunity_str + "\n" + ("=" * 50) + "\n")
 
         print("Arbitrage opportunities have been written to finaloutput.txt")
-        result = await self.update_results_with_icons(arbitrage_opportunities)
+        
         return result
 
     def sanitize_filename(self, symbol):
