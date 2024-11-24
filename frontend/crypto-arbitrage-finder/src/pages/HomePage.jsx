@@ -10,6 +10,7 @@ const HomePage = () => {
   const [arbitrageData, setArbitrageData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showAlert, setShowAlert] = useState(false); // Add showAlert state
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,6 +19,7 @@ const HomePage = () => {
         console.log(response); // Log to check the structure
         if (response && response.data && Array.isArray(response.data)) {
           setArbitrageData(response.data);
+          setShowAlert(true); // Trigger the alert when data is fetched successfully
         } else {
           setArbitrageData([]);
         }
@@ -34,7 +36,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <TopBar />
+      <TopBar showAlert={showAlert} setShowAlert={setShowAlert} /> {/* Pass setShowAlert to TopBar */}
       <h1 className="w-full h-[10vh] text-white font-bold text-5xl md-lg:text-left text-center md-lg:ml-32 ml-0 mt-32">
         Crypto Arbitrage Finder
       </h1>

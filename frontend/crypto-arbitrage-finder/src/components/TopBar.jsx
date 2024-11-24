@@ -1,4 +1,3 @@
-// src/components/TopBar.jsx
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
@@ -7,12 +6,10 @@ import Button from './Button';
 import AlertBanner from '../components/AlertBanner'; // Import the AlertBanner component
 import { FaHome, FaInfoCircle, FaEnvelope, FaPhone, FaUserPlus, FaSignInAlt } from 'react-icons/fa'; // Example with react-icons
 
-const TopBar = () => {
+const TopBar = ({ showAlert, setShowAlert }) => { // Accept showAlert and setShowAlert as props
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const location = useLocation();
-  
-  const [showAlert, setShowAlert] = useState(false);
 
   const handleCloseAlert = () => setShowAlert(false);
 
@@ -44,7 +41,7 @@ const TopBar = () => {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
-  // md-lg:border-b-[0px]
+
   return (
     <>
       {/* Alert Banner */}
@@ -105,62 +102,26 @@ const TopBar = () => {
               </svg>
             </button>
             {dropdownOpen && (
-              <div className="sm:absolute sm:left-0 absolute right-0 mt-8 w-48 bg-[#2B2F38] rounded-md shadow-lg z-10">
-                <ul className="py-1">
-                  <li>
-                    <Link to="/" onClick={handleHomeClick} className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
-                      <FaHome className="mr-2" /> Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/about" className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
-                      <FaInfoCircle className="mr-2" /> About
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/contact" className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
-                      <FaEnvelope className="mr-2" /> Contact
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/contacts" className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
-                      <FaEnvelope className="mr-2" /> Contacts
-                    </Link>
-                  </li>
-
-                  <div className="sm:hidden">
-                    <li>
-                      <Link to="/signup" className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
-                        <FaUserPlus className="mr-2" /> Sign Up
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/signin" className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
-                        <FaSignInAlt className="mr-2" /> Sign In
-                      </Link>
-                    </li>
-                    <li>
-                      <a href="#" className="flex items-center block px-4 py-2 text-white hover:bg-gray-700">
-                        <img src={settingsIcon} alt="Settings" className="h-4 w-4 mr-2" /> Settings
-                      </a>
-                    </li>
-                  </div>
-                </ul>
+              <div className="sm:absolute sm:left-0 absolute right-0 mt-2 w-48 bg-gray-800 text-white rounded-lg shadow-lg py-2">
+                <Link to="/" onClick={handleHomeClick} className="block px-4 py-2 hover:bg-gray-700">
+                  Home
+                </Link>
+                <Link to="/about" className="block px-4 py-2 hover:bg-gray-700">
+                  About
+                </Link>
+                <Link to="/contact" className="block px-4 py-2 hover:bg-gray-700">
+                  Contact
+                </Link>
+                <Link to="/contacts" className="block px-4 py-2 hover:bg-gray-700">
+                  Contacts
+                </Link>
               </div>
             )}
           </div>
         </nav>
-
-        {/* Buttons and Settings Icon (hidden on small screens) */}
-        <div className="hidden sm:flex items-center ml-auto">
-          <Button label="Sign Up" onClick={() => console.log('Register clicked')} className="ml-auto" isPrimary={false} />
-          <Button label="Sign In" onClick={() => console.log('Sign In clicked')} className="ml-4 mr-2" />
-          <img src={settingsIcon} alt="Settings" className="h-8 w-8 ml-2 mr-4 cursor-pointer hover:opacity-75" onClick={() => console.log('Settings clicked')} />
-        </div>
       </div>
     </>
   );
 };
 
 export default TopBar;
-  
