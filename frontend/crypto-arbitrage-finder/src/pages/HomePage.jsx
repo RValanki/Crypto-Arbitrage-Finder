@@ -4,6 +4,7 @@ import Refresh from '../components/Refresh';
 import ArbitragePair from '../components/ArbitragePair';
 import Filters from '../components/Filters';
 import AboutComponent from '../components/AboutComponent';
+import { HashLoader } from 'react-spinners';
 import { fetchArbitrageOpportunities } from '../api/arbitrageService';
 
 const HomePage = () => {
@@ -56,9 +57,10 @@ const HomePage = () => {
               <h2 className="text-white w-1/3 flex justify-center font-semibold">Profit</h2>
             </div>
 
-            <div className="w-full bg-[#1F2025] rounded-[5px] p-2 md-lg:min-w-[1000px] min-w-[500px]">
+            <div className={`w-full bg-[#1F2025] rounded-[5px] p-2 md-lg:min-w-[1000px] min-w-[500px] ${isLoading ? 'flex items-center justify-center pt-20 pb-20' : ''}`}>
               {isLoading ? (
-                <p className="text-white text-center mt-20 mb-80">Loading...</p>
+                <HashLoader color="#592FA2" size={50}/>
+                
               ) : error ? (
                 <p className="text-red-500 text-center">{error}</p>
               ) : (
