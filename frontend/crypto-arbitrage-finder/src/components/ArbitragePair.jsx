@@ -2,12 +2,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Binance from '../assets/Binance.png';
-import CoinBase from "../assets/Coinbase.png";
+import Coinbase from "../assets/Coinbase.png";
+import Bybit from "../assets/Bybit.png"
+import Huobi from "../assets/Huobi.png"
+import Kucoin from "../assets/Kucoin.png"
+import Kraken from "../assets/Kraken.png"
+import OKX from "../assets/OKX.png"
 import Bitcoin from "../assets/Bitcoin.png";
 import GreenArrowUp from "../assets/GreenArrowUp.png";
 import RedArrowDown from "../assets/RedArrowDown.png";
 
 const ArbitragePair = ({ data }) => { // Accept id as a prop
+
+    const exchangeIcons = {
+        "Coinbase": Coinbase,
+        "Binance": Binance,
+        "Bybit": Bybit,
+        "Huobi": Huobi,
+        "KuCoin": Kucoin,
+        "Kraken": Kraken,
+        "OKX": OKX
+    }
+
     return (
         <Link to={`/arbitragepair`}> {/* Link to the TradeInfoPage with id */}
             <div className="w-full  bg-[#2B2F38] rounded-[5px] mb-2.5 p-2 group hover:bg-[#373B47] transition-colors duration-300 ease-in-out cursor-pointer">
@@ -24,7 +40,7 @@ const ArbitragePair = ({ data }) => { // Accept id as a prop
                                 {data.symbol}
                             </div>
                             <div className="flex items-center justify-center bg-[#2B2F38] ml-2 p-2 h-[4vh] max-h-[30px] rounded-[5px] text-white text-xs">
-                                <img src={CoinBase} alt="Logo" className="h-4 ml-1 mr-2" />
+                                <img src={exchangeIcons[data.buyExchange]} alt="Logo" className="h-6  mr-2" />
                                 {data.buyExchange}
                             </div>
                             <img src={RedArrowDown} alt="Logo" className="h-2 ml-2" />
@@ -40,7 +56,7 @@ const ArbitragePair = ({ data }) => { // Accept id as a prop
                                 {data.symbol}
                             </div>
                             <div className="flex items-center justify-center bg-[#2B2F38] ml-2 p-2 h-[4vh] max-h-[30px] rounded-[5px] text-white text-xs">
-                                <img src={Binance} alt="Logo" className="h-4 ml-1 mr-2" />
+                                <img src={exchangeIcons[data.sellExchange]} alt="Logo" className="h-6  mr-2" />
                                 {data.sellExchange}
                             </div>
                             <img src={GreenArrowUp} alt="Logo" className="h-2 ml-2" />
@@ -84,7 +100,7 @@ const ArbitragePair = ({ data }) => { // Accept id as a prop
                                     After fees
                                 </div>
                                 <div
-                                    className={`flex items-center justify-center bg-[#2B2F38] ml-2 font-bold p-2 my-1 rounded-[5px] ${data.profitPercentage === 0
+                                    className={`flex items-center justify-center bg-[#2B2F38] ml-2 font-bold p-2 my-1 rounded-[5px] ${data.profitPercentageAfterFees === 0
                                             ? "text-gray-500" // Gray for 0
                                             : data.profitPercentageAfterFees < 0
                                                 ? "text-red-500" // Red for negative profit
