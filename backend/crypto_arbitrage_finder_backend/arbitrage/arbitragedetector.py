@@ -1,13 +1,13 @@
 import asyncio
 import requests
-from adapters.binance_adapter import BinanceAdapter
-from adapters.coinbase_adapter import CoinbaseAdapter
-from adapters.kraken_adapter import KrakenAdapter
-from adapters.bitfinex_adapter import BitfinexAdapter
-from adapters.kucoin_adapter import KuCoinAdapter
-from adapters.bybit_adapter import BybitAdapter
-from adapters.huobi_adapter import HuobiAdapter
-from adapters.okx_adapter import OKXAdapter
+from .adapters.binance_adapter import BinanceAdapter
+from .adapters.coinbase_adapter import CoinbaseAdapter
+from .adapters.kraken_adapter import KrakenAdapter
+from .adapters.bitfinex_adapter import BitfinexAdapter
+from .adapters.kucoin_adapter import KuCoinAdapter
+from .adapters.bybit_adapter import BybitAdapter
+from .adapters.huobi_adapter import HuobiAdapter
+from .adapters.okx_adapter import OKXAdapter
 import os
 import base64
 import aiohttp
