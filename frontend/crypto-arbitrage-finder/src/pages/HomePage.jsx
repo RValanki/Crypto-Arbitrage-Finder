@@ -5,8 +5,10 @@
   import ArbitragePair from '../components/ArbitragePair';
   import Filters from '../components/Filters';
   import AboutComponent from '../components/AboutComponent';
+  import { fetchArbitrageOpportunities } from '../api/arbitrageService';
 
   const HomePage = () => {
+    fetchArbitrageOpportunities();
     return (
       <div>
         <TopBar /> {/* Add the TopBar component here */}
