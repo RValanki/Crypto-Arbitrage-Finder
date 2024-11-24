@@ -151,7 +151,8 @@ class ArbitrageDetector:
         # Find arbitrage opportunities
         arbitrage_opportunities = self.find_arbitrage_opportunities(arbitrage_data_list)
 
-        result = await self.update_results_with_icons(arbitrage_opportunities)
+        #result = await self.update_results_with_icons(arbitrage_opportunities)
+        result = arbitrage_opportunities
         # Write arbitrage opportunities to a file
         with open('finaloutput.txt', 'w') as file:
             for opportunity in result:
@@ -170,7 +171,7 @@ class ArbitrageDetector:
                                f"Profit Percentage: {opportunity['profitPercentage']:.2f}%\n"
                                f"Profit After Fees: {opportunity['profitAfterFees']}\n"
                                f"Profit Percentage After Fees: {opportunity['profitPercentageAfterFees']:.2f}%\n"
-                               f"Icon: {opportunity['icon']}\n"  
+                               #f"Icon: {opportunity['icon']}\n"  
                                )
                 file.write(opportunity_str + "\n" + ("=" * 50) + "\n")
 
