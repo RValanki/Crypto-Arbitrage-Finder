@@ -240,22 +240,3 @@ class ArbitrageDetector:
         return result
     
 
-async def main():
-    adapters_info = [
-        BinanceAdapter,
-        CoinbaseAdapter,
-        KrakenAdapter,
-        KuCoinAdapter,
-        BybitAdapter,
-        HuobiAdapter,
-        BitfinexAdapter,
-        OKXAdapter,
-    ]
-
-    
-    detector = ArbitrageDetector(adapters_info)
-    result = await detector.detect_arbitrage()
-    print(result)
-
-if __name__ == "__main__":
-    asyncio.run(main())

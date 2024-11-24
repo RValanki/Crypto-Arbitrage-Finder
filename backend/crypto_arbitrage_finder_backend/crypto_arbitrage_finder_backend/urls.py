@@ -21,5 +21,5 @@ from arbitrage import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-     path('some-endpoint/', views.some_view, name='some_view'),
+     path('detect_arbitrage/', views.detect_arbitrage, name='detect_arbitrage'),
 ]
