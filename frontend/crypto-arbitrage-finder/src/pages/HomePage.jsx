@@ -10,33 +10,37 @@ const HomePage = () => {
   const [arbitrageData, setArbitrageData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showAlert, setShowAlert] = useState(false); // Add showAlert state
+  const [showAlert, setShowAlert] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchArbitrageOpportunities();
-        console.log(response); // Log to check the structure
-        if (response && response.data && Array.isArray(response.data)) {
-          setArbitrageData(response.data);
-          setShowAlert(true); // Trigger the alert when data is fetched successfully
-        } else {
-          setArbitrageData([]);
-        }
-      } catch (error) {
-        setError("Error fetching arbitrage opportunities.");
-        console.error(error);
-      } finally {
-        setIsLoading(false);
+  const fetchData = async () => {
+    try {
+      setIsLoading(true); // Set loading state to true when data is being fetched
+      const response = await fetchArbitrageOpportunities();
+      console.log(response); // Log to check the structure
+      if (response && response.data && Array.isArray(response.data)) {
+        setArbitrageData(response.data);
+        setShowAlert(true); // Trigger the alert when data is fetched successfully
+      } else {
+        setArbitrageData([]);
       }
-    };
+    } catch (error) {
+      setError("Error fetching arbitrage opportunities.");
+      console.error(error);
+    } finally {
+      setIsLoading(false); // Reset loading state
+    }
+  };
 
-    fetchData();
-  }, []);
+  // Fetch data only if arbitrageData is empty
+  useEffect(() => {
+    if (arbitrageData.length === 0) {
+      fetchData();
+    }
+  }, [arbitrageData]);
 
   return (
     <div>
-      <TopBar showAlert={showAlert} setShowAlert={setShowAlert} /> {/* Pass setShowAlert to TopBar */}
+      <TopBar showAlert={showAlert} setShowAlert={setShowAlert} />
       <h1 className="w-full h-[10vh] text-white font-bold text-5xl md-lg:text-left text-center md-lg:ml-32 ml-0 mt-32">
         Crypto Arbitrage Finder
       </h1>
@@ -72,7 +76,7 @@ const HomePage = () => {
           {/* Second Column */}
           <div className="flex-[1.6] p-4 flex flex-col sm:px-16 md-lg:px-0">
             <div className="h-[15vh] bg-[#1F2025] rounded-[5px] mt-6 mb-4 p-2">
-              <Refresh />
+              <Refresh onRefresh={fetchData} isLoading={isLoading} />
             </div>
             <div className="h-[35vh] bg-[#1F2025] rounded-[5px] mb-4 p-2">
               <Filters />
