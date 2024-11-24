@@ -119,6 +119,14 @@ const TopBar = ({ showAlert, setShowAlert }) => { // Accept showAlert and setSho
             )}
           </div>
         </nav>
+
+        {/* Buttons and Settings Icon (hidden on small screens) */}
+        <div className="hidden sm:flex items-center ml-auto">
+          <Button label="Sign Up" onClick={() => console.log('Register clicked')} className="ml-auto" isPrimary={false} />
+          <Button label="Sign In" onClick={() => console.log('Sign In clicked')} className="ml-4 mr-2" />
+          <img src={settingsIcon} alt="Settings" className="h-8 w-8 ml-2 mr-4 cursor-pointer hover:opacity-75" onClick={() => console.log('Settings clicked')} />
+        </div>
+        
       </div>
     </>
   );
